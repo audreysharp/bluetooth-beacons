@@ -3,7 +3,7 @@
 /**
 * Database config variables
 */
-define("DB_HOST", "https://bluetooth-beacon-ssl-yechoorv.cloudapps.unc.edu/");
-define("DB_USER", "userTC4");
-define("DB_PASSWORD", "YVAdJtJJmw2tYoCo");
-define("DB_DATABASE", "sampledb");
+define("DB_HOST", getenv("MYSQL_SERVICE_HOST"));
+define("DB_USER", getenv("MYSQL_USER"));
+define("DB_PASSWORD", getenv("MYSQL_PASSWORD"));
+define("DB_DATABASE", getenv("MYSQL_DATABASE"));
