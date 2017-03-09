@@ -49,6 +49,36 @@ class DBFunctions {
 		return $result;
 	}
 
+	// Add a check in record
+	public function addCheckIn($onyen, $course) {
+		$db = $this->__construct();
+		$query = $db->query("INSERT INTO attendance(onyen, course, timestamp) VALUES('$onyen', '$course', NOW())") or die(mysqli_error());
+		if($query) {
+			// Successful insert
+			$result['code'] = 0;
+			$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error());
+			$record = $query->fetch_array(MYSQLI_ASSOC);
+			$result['record'] = $record;
+		} else {
+			// Insert failed
+			$result['code'] = 5;
+		}
+		return $result;
+	}
+
+	// Get all student attendance record
+	public function getAttendance($onyen) {
+		$db = $this->__construct();
+
+		$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error());
+		if($query) {
+			$result['code'] = 0;
+			$records = $query->fetch_all();
+			$result['records'] = $records;
+		}
+		return $result;
+	}
+
 	/**
 	* Encrypting password
 	* returns salt and encrypted password

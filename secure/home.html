@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bluetooth Beacons</title>
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap-theme.min.css">
+
+  <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+  <script type="text/javascript" src="js/dashboard.controller.js"></script>
+</head>
+<body>
+  <div ng-app="Dashboard" ng-controller="DashboardController">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Bluetooth Beacon Attendance</a>
+      </div>
+      <ul class="nav navbar-nav" ng-if="isStudent">
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+      <ul class="nav navbar-nav" ng-if="isInstructor">
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+      <ul class="nav navbar-nav" ng-if="isAdministrator">
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </div>
+    <button ng-click="getAttendance()">Hello</button>
+  </nav>
+  <ul ng-if="records.length > 0">
+    <li ng-repeat="record in records">{{record}}</li>
+  </ul>
+  <div>
+</body>
+</html>
