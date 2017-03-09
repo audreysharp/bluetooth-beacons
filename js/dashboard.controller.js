@@ -6,7 +6,7 @@ DashboardController.$inject = ['$scope','$http'];
 
 function DashboardController($scope, $http) {
   var dashboard = $scope;
-  LDAPService.getInfo();
+  $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
   var onyen = 'yechoorv';
   dashboard.records = [];
   setAccess();
@@ -21,7 +21,7 @@ function DashboardController($scope, $http) {
   dashboard.getAttendance = function (data) {
     $http({
       method: 'POST',
-      data: JSON.stringify(data),
+      data: data,
       url: 'https://shibboleth-yechoorv.cloudapps.unc.edu/backend/getAttendance.php'
     }).then(function successCallback(response) {
       // this callback will be called asynchronously
