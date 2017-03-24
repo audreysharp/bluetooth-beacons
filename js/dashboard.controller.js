@@ -7,8 +7,12 @@ DashboardController.$inject = ['$scope','$http'];
 function DashboardController($scope, $http) {
   var dashboard = $scope;
   $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
-  var onyen = 'yechoorv';
-  dashboard.records = [];
+  var onyen = sessionStorage.getItem('uid');
+  var pid = sessionStorage.getItem('pid');
+  var firstName = sessionStorage.getItem('givenName');
+  var lastName = sessionStorage.getItem('sn');
+  var email = sessionStorage.getItem('mail');
+  // var onyen = 'yechoorv';
   setAccess();
 
   function setAccess(){
@@ -17,12 +21,12 @@ function DashboardController($scope, $http) {
     dashboard.isAdministrator = false;
   }
 
-  data = {"onyen":onyen};
+  data = {'onyen':onyen};
   dashboard.getAttendance = function (data) {
     $http({
       method: 'POST',
       data: data,
-      url: 'https://shibboleth-yechoorv.cloudapps.unc.edu/backend/getAttendance.php'
+      url: '/backend/getAttendance.php'
     }).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
