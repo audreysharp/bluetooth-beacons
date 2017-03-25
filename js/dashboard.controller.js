@@ -37,20 +37,27 @@ function DashboardController($scope, $http) {
   //     alert("fail");
   //   });
   // }
+  dashboard.getAttendance = function () {
+    $http({
+      method: 'POST',
+      url: '/backend/getAttendance.php',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      },
+      data: {onyen: dashboard.onyen}
+    }).then(successCallback, errorCallback);
 
-  $http({
-    method: 'POST',
-    url: '/backend/getAttendance.php',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    transformRequest: function(obj) {
-      var str = [];
-      for(var p in obj)
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-      return str.join("&");
-    },
-    data: {onyen: dashboard.onyen}
-  }).success(function (response) {
-    dashboard.records = response['result'];
-  });
+    function successCallback(response) {
+      dashboard.records = response['result'];
+    }
+
+    function errorCallback(response) {
+      alert("fail");
+    }
+  }
 
 }
