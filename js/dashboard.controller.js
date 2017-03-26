@@ -4,7 +4,7 @@ angular
 
 DashboardController.$inject = ['$scope', 'AttendanceService'];
 
-function DashboardController($scope, $http, AttendanceService) {
+function DashboardController($scope, AttendanceService) {
   var dashboard = $scope;
 
   // TODO: change sessionStorage to actually retrieve variables
@@ -36,8 +36,6 @@ function DashboardController($scope, $http, AttendanceService) {
       var course = dashboard.tabs[tabNum];
       course.courseAttendance+=1;
     }
-
-
   }
 
 }
