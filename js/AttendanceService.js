@@ -1,8 +1,10 @@
 angular
 .module("Dashboard", [])
-.service("AttendanceService", "AttendanceServiceController");
+.service("AttendanceService", AttendanceService);
 
-function AttendanceServiceController($http) {
+AttendanceService.$inject = ['$http'];
+
+function AttendanceService($http) {
   function getAttendance(data) {
     $http({
       method: 'POST',
