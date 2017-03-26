@@ -2,9 +2,9 @@ angular
 .module("Dashboard", [])
 .controller("DashboardController", DashboardController);
 
-DashboardController.$inject = ['$scope', 'AttendanceService'];
+DashboardController.$inject = ['$scope', '$http', 'AttendanceService'];
 
-function DashboardController($scope, AttendanceService) {
+function DashboardController($scope, $http, AttendanceService) {
 
   function hello() {
     var dashboard = $scope;
