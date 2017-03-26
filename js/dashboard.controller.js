@@ -1,5 +1,5 @@
 angular
-.module("Dashboard", [])
+.module("Dashboard", ["services"])
 .controller("DashboardController", DashboardController);
 
 DashboardController.$inject = ['$scope', '$http', 'AttendanceService'];
