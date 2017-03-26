@@ -19,20 +19,19 @@
         <a class="navbar-brand" href="#">Bluetooth Beacon Attendance</a>
       </div>
       <ul class="nav navbar-nav" ng-if="isStudent">
-        <li><a href="#">Courses</a></li>
         <li><a href="#">Settings</a></li>
       </ul>
       <ul class="nav navbar-nav" ng-if="isInstructor">
-        <li><a href="#">Courses</a></li>
         <li><a href="#">Settings</a></li>
       </ul>
       <ul class="nav navbar-nav" ng-if="isAdministrator">
-        <li><a href="#">Courses</a></li>
         <li><a href="#">Settings</a></li>
       </ul>
     </div>
-    <button ng-click="getAttendance()">Hello</button>
   </nav>
+  <ul class="nav nav-tabs">
+    <li ng-repeat="tab in tabs"><a href="#">{{tab.courseName}}</a></li>
+  </ul>
   <ul ng-if="records.length > 0">
     <li ng-repeat="record in records">{{record}}</li>
   </ul>
