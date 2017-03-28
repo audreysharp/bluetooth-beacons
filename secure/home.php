@@ -22,7 +22,7 @@ $email = $headers['mail'];
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
 </head>
 <body>
-  <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="init()">
+  <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>';">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">

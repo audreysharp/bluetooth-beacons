@@ -7,13 +7,6 @@ DashboardController.$inject = ['$scope', '$http'];
 function DashboardController($scope, $http) {
   $scope.url = '/secure/home.php';
   var dashboard = $scope;
-  dashboard.init = function() {
-    dashboard.onyen='<?php echo $onyen ?>';
-    dashboard.pid='<?php echo $pid ?>';
-    dashboard.firstName = '<?php echo $firstName ?>';
-    dashboard.lastName = '<?php echo $lastName ?>';
-    dashboard.email = '<?php echo $email ?>';
-  }
   // dashboard.onyen = 'yechoorv';
   setAccess();
   setUserInfo();
