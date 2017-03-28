@@ -19,7 +19,7 @@ function DashboardController($scope, $http) {
 
     setAccess();
     setUserInfo();
-    dashboard.records = getAttendance(dashbaord.onyen);
+    dashboard.records = getAttendance(dashboard.onyen);
 
     function setAccess(){
       dashboard.isStudent = true;
