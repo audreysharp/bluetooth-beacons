@@ -13,10 +13,6 @@ $db = new DBFunctions();
 // Check-in request paramters
 $onyen = $request['onyen'];
 
-// Get Headers
-$headers = getallheaders();
-$response['headers'] = $headers;
-
 // Verify and store credentials
 $result = $db->getAttendance($onyen);
 

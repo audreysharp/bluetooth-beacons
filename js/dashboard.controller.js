@@ -5,6 +5,7 @@ angular
 DashboardController.$inject = ['$scope', '$http'];
 
 function DashboardController($scope, $http) {
+  $scope.url = '/secure/home.php';
   var dashboard = $scope;
   // TODO: change sessionStorage to actually retrieve variables
   // dashboard.onyen = sessionStorage.getItem('uid');
