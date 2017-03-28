@@ -58,19 +58,14 @@ function DashboardController($scope, $http) {
     }
 
     function createTabs() {
-      dashboard.tabs = [];
+      dashboard.tabs = {};
       angular.forEach(dashboard.records, function(record, key){
         var courseName = record.course;
-        var tabNum = Object.values(dashboard.tabs).indexOf(courseName);
-
-        if(tabNum === -1) {
-          var courseAttendance = 1;
-          dashboard.tabs.concat({'courseName': courseName, 'courseAttendance': courseAttendance});
+        if(dashboard.tabs[courseName]){
+          dashboard.tabs[courseName].attendance++;
         } else {
-          var course = dashboard.tabs[tabNum];
-          course.courseAttendance+=1;
-        }
-      });
+          dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
+        });
     }
 
   }
