@@ -59,13 +59,13 @@ function DashboardController($scope, $http) {
 
     function createTabs() {
       dashboard.tabs = {};
-      angular.forEach(dashboard.records, function(record, key){
-        var courseName = record.course;
-        if(dashboard.tabs[courseName]){
-          dashboard.tabs[courseName].attendance++;
-        } else {
-          dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
-        }
+      dashboard.records.forEach(function(value, key){
+          var courseName = value.course;
+          if(dashboard.tabs[courseName]){
+            dashboard.tabs[courseName].attendance++;
+          } else {
+            dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
+          }
       });
     }
   }
