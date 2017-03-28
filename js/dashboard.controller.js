@@ -66,6 +66,7 @@ function DashboardController($scope, $http) {
         } else {
           dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
         });
+      }
     }
 
   }
