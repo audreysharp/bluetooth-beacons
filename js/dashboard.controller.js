@@ -59,9 +59,9 @@ function DashboardController($scope, $http) {
 
     function createTabs() {
       dashboard.tabs = [];
-      angular.forEach(dashboard.records, function(value, key){
-        var courseName = value[2];
-        var tabNum = dashboard.tabs.indexOf(courseName);
+      angular.forEach(dashboard.records, function(record, key){
+        var courseName = record.course;
+        var tabNum = Object.values(dashboard.tabs).indexOf(courseName);
 
         if(tabNum === -1) {
           var courseAttendance = 1;
