@@ -7,21 +7,28 @@ DashboardController.$inject = ['$scope', '$http'];
 function DashboardController($scope, $http) {
   $scope.url = '/secure/home.php';
   var dashboard = $scope;
-  // dashboard.onyen = 'yechoorv';
-  setAccess();
-  setUserInfo();
 
-  function setAccess(){
-    dashboard.isStudent = true;
-    dashboard.isInstructor = false;
-    dashboard.isAdministrator = false;
+  dashboard.setAccess = function () {
+    var STUDENT_AFFILIATION = "student@unc.edu";
+    var INSTRUCTOR_AFFILIATION = "faculty@unc.edu";
+    var STAFF_AFFILIATION = "staff@unc.edu";
+    for(var affiliation in dashboard.affiliation) {
+      if(angular.equals(STUDENT_AFFILIATION, affiliation)) {
+        dashboard.isStudent = true;
+      }
+      if(angular.equals(INSTRUCTOR_AFFILIATION, affiliation)) {
+        dashboard.isInstructor = true;
+      }
+      if(angular.equals(STAFF_AFFILIATION, affiliation)) {
+        dashboard.isStaff = true;
+      }
+    }
+    if(dashboard.isStaff && dashbaord.isFaculty) {
+      dashboard.isAdministrator = true;
+    }
   }
 
-  function setUserInfo() {
-    var http = $http;
-  }
-
-  dashboard.getAttendance = function() {
+  dashboard.getAttendance = function () {
     $http({
       method: 'POST',
       url: '/backend/getAttendance.php',
@@ -32,7 +39,7 @@ function DashboardController($scope, $http) {
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
       },
-      data: {onyen: data}
+      data: {onyen: dashboard.onyen}
     }).then(successCallback, errorCallback);
 
     function successCallback(response) {
@@ -45,7 +52,7 @@ function DashboardController($scope, $http) {
       dashboard.records = [];
       createTabs();
     }
-  };
+  }
 
   function createTabs() {
     dashboard.tabs = {};

@@ -7,6 +7,7 @@ $pid = $headers['pid'];
 $firstName = $headers['givenName'];
 $lastName = $headers['sn'];
 $email = $headers['mail'];
+$affiliation = $headers['affiliation'];
 
 ?>
 
@@ -21,20 +22,20 @@ $email = $headers['mail'];
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
 </head>
 <body>
-  <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>'; getAttendance();">
+  <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>'; affiliation = '<?php echo $affiliation; ?>'; setAccess(); getAttendance();">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Bluetooth Beacon Attendance</a>
         </div>
         <ul class="nav navbar-nav" ng-if="isStudent">
-          <li><a href="#">Settings</a></li>
+          <li><a href="#">Student Menu</a></li>
         </ul>
         <ul class="nav navbar-nav" ng-if="isInstructor">
-          <li><a href="#">Settings</a></li>
+          <li><a href="#">Instructor Menu</a></li>
         </ul>
         <ul class="nav navbar-nav" ng-if="isAdministrator">
-          <li><a href="#">Settings</a></li>
+          <li><a href="#">Administrator Menu</a></li>
         </ul>
       </div>
     </nav>
