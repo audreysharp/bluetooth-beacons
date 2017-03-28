@@ -65,10 +65,9 @@ function DashboardController($scope, $http) {
           dashboard.tabs[courseName].attendance++;
         } else {
           dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
-        });
-      }
+        }
+      });
     }
-
   }
 
 }
