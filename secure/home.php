@@ -17,11 +17,11 @@ $email = $headers['mail'];
   <title>Bluetooth Beacons</title>
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
-
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
+  <script type="text/javascript" src="/js/dashboard.controller.js"></script>
 </head>
 <body>
-  <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>';">
+  <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>'; getAttendance();">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -49,5 +49,3 @@ $email = $headers['mail'];
     </ul>
   </div>
 </body>
-
-<script type="text/javascript" src="/js/dashboard.controller.js"></script>

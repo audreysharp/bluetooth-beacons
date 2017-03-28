@@ -10,7 +10,6 @@ function DashboardController($scope, $http) {
   // dashboard.onyen = 'yechoorv';
   setAccess();
   setUserInfo();
-  getAttendance(dashboard.onyen);
 
   function setAccess(){
     dashboard.isStudent = true;
@@ -22,7 +21,7 @@ function DashboardController($scope, $http) {
     var http = $http;
   }
 
-  function getAttendance(data) {
+  dashboard.getAttendance = function() {
     $http({
       method: 'POST',
       url: '/backend/getAttendance.php',
@@ -46,7 +45,7 @@ function DashboardController($scope, $http) {
       dashboard.records = [];
       createTabs();
     }
-  }
+  };
 
   function createTabs() {
     dashboard.tabs = {};
