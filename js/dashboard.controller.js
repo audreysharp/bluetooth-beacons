@@ -7,13 +7,14 @@ DashboardController.$inject = ['$scope', '$http'];
 function DashboardController($scope, $http) {
   $scope.url = '/secure/home.php';
   var dashboard = $scope;
-  // TODO: change sessionStorage to actually retrieve variables
-  // dashboard.onyen = sessionStorage.getItem('uid');
-  // dashboard.pid = sessionStorage.getItem('pid');
-  // dashboard.firstName = sessionStorage.getItem('givenName');
-  // dashboard.lastName = sessionStorage.getItem('sn');
-  // dashboard.email = sessionStorage.getItem('mail');
-  dashboard.onyen = 'yechoorv';
+  dashboard.init = function() {
+    dashboard.onyen='<?php echo $onyen ?>';
+    dashboard.pid='<?php echo $pid ?>';
+    dashboard.firstName = '<?php echo $firstName ?>';
+    dashboard.lastName = '<?php echo $lastName ?>';
+    dashboard.email = '<?php echo $email ?>';
+  }
+  // dashboard.onyen = 'yechoorv';
   setAccess();
   setUserInfo();
   getAttendance(dashboard.onyen);

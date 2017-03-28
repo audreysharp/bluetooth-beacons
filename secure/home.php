@@ -2,11 +2,11 @@
 
 $headers = getallheaders();
 
-echo $onyen = $headers['uid'];
-echo $pid = $headers['pid'];
-echo $firstName = $headers['givenName'];
-echo $lastName = $headers['sn'];
-echo $email = $headers['mail'];
+$onyen = $headers['uid'];
+$pid = $headers['pid'];
+$firstName = $headers['givenName'];
+$lastName = $headers['sn'];
+$email = $headers['mail'];
 
 ?>
 
@@ -22,7 +22,7 @@ echo $email = $headers['mail'];
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
 </head>
 <body>
-  <div ng-app="Dashboard" ng-controller="DashboardController">
+  <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="init()">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
