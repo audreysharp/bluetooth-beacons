@@ -47,27 +47,32 @@ function DashboardController($scope, $http) {
 
       function successCallback(response) {
         dashboard.records = response.data.result;
+        createTabs();
       }
 
       function errorCallback(response) {
         alert("fail");
         dashboard.records = [];
+        createTabs();
       }
     }
 
-    dashboard.tabs = [];
-    for (record in dashboard.records) {
-      var courseName = record[2];
-      var tabNum = dashboard.tabs.indexOf(courseName);
+    function createTabs() {
+      dashboard.tabs = [];
+      angular.forEach(dashboard.records, function(value, key){
+        var courseName = value[2];
+        var tabNum = dashboard.tabs.indexOf(courseName);
 
-      if(tabNum === -1) {
-        var courseAttendance = 1;
-        dashboard.tabs.concat({'courseName': courseName, 'courseAttendance': courseAttendance});
-      } else {
-        var course = dashboard.tabs[tabNum];
-        course.courseAttendance+=1;
-      }
+        if(tabNum === -1) {
+          var courseAttendance = 1;
+          dashboard.tabs.concat({'courseName': courseName, 'courseAttendance': courseAttendance});
+        } else {
+          var course = dashboard.tabs[tabNum];
+          course.courseAttendance+=1;
+        }
+      });
     }
+
   }
 
 }

@@ -73,7 +73,7 @@ class DBFunctions {
 		$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error());
 		if($query) {
 			$result['code'] = 0;
-			$records = $query->fetch_all();
+			$records = $query->fetch_all(MYSQLI_ASSOC);
 			$result['records'] = $records;
 		}
 		return $result;
