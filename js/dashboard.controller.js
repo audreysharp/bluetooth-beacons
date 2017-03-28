@@ -13,7 +13,6 @@ function DashboardController($scope, $http) {
   // dashboard.lastName = sessionStorage.getItem('sn');
   // dashboard.email = sessionStorage.getItem('mail');
   dashboard.onyen = 'yechoorv';
-
   setAccess();
   setUserInfo();
   getAttendance(dashboard.onyen);
