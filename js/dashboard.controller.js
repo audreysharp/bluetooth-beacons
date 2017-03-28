@@ -1,14 +1,14 @@
 angular
-.module("Dashboard", ["services"])
+.module("Dashboard", [])
 .controller("DashboardController", DashboardController);
 
 DashboardController.$inject = ['$scope', '$http'];
 
 function DashboardController($scope, $http) {
+  var dashboard = $scope;
+  dashboard.hello = hello();
 
   function hello() {
-    var dashboard = $scope;
-
     // TODO: change sessionStorage to actually retrieve variables
     // dashboard.onyen = sessionStorage.getItem('uid');
     // dashboard.pid = sessionStorage.getItem('pid');
