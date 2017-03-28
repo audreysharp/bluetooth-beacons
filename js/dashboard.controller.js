@@ -2,9 +2,9 @@ angular
 .module("Dashboard", ["services"])
 .controller("DashboardController", DashboardController);
 
-DashboardController.$inject = ['$scope', '$http', 'AttendanceService'];
+DashboardController.$inject = ['$scope', '$http'];
 
-function DashboardController($scope, $http, AttendanceService) {
+function DashboardController($scope, $http) {
 
   function hello() {
     var dashboard = $scope;
@@ -18,6 +18,8 @@ function DashboardController($scope, $http, AttendanceService) {
     dashboard.onyen = 'yechoorv';
 
     setAccess();
+    setUserInfo();
+    dashboard.records = getAttendance(dashbaord.onyen);
 
     function setAccess(){
       dashboard.isStudent = true;
@@ -25,7 +27,34 @@ function DashboardController($scope, $http, AttendanceService) {
       dashboard.isAdministrator = false;
     }
 
-    dashboard.records = AttendanceService.getAttendance(dashbaord.onyen);
+    function setUserInfo() {
+      var http = $http;
+    }
+
+    function getAttendance(data) {
+      $http({
+        method: 'POST',
+        url: '/backend/getAttendance.php',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        transformRequest: function(obj) {
+          var str = [];
+          for(var p in obj)
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          return str.join("&");
+        },
+        data: {onyen: data}
+      }).then(successCallback, errorCallback);
+
+      function successCallback(response) {
+        return response.data.result;
+      }
+
+      function errorCallback(response) {
+        alert("fail");
+        return [];
+      }
+    }
+
     dashboard.tabs = [];
     for (record in dashboard.records) {
       var courseName = record[2];
