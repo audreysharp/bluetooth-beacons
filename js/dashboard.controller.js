@@ -19,7 +19,7 @@ function DashboardController($scope, $http) {
 
     setAccess();
     setUserInfo();
-    dashboard.records = getAttendance(dashboard.onyen);
+    getAttendance(dashboard.onyen);
 
     function setAccess(){
       dashboard.isStudent = true;
@@ -46,12 +46,12 @@ function DashboardController($scope, $http) {
       }).then(successCallback, errorCallback);
 
       function successCallback(response) {
-        return response.data.result;
+        dashboard.records = response.data.result;
       }
 
       function errorCallback(response) {
         alert("fail");
-        return [];
+        dashboard.records = [];
       }
     }
 
