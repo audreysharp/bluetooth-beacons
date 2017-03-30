@@ -42,17 +42,17 @@ $affiliation = $headers['affiliation'];
       </div>
     </nav>
     <ul class="nav nav-tabs" ng-init="activeTab='Home'">
-      <li ng-class="{active: activeTab=='Home'}"><a ng-click="activeTab='Home'">Home</a></li>
-      <li ng-repeat="(key, tab) in tabs" ng-class="{active: activeTab==key}"><a ng-click="activeTab=key">{{key}}</a></li>
+      <li ng-class="{'active': activeTab=='Home'}"><a ng-click="activeTab='Home'">Home</a></li>
+      <li ng-repeat="(key, tab) in tabs" ng-class="{'active': activeTab==key}"><a ng-click="activeTab=key">{{key}}</a></li>
     </ul>
-    <div ng-if="activeTab=='Home'">
+    <div ng-show="activeTab=='Home'">
       <h2>Info:</h2>
       <ul>
         <li>{{onyen}}</li>
         <li>{{pid}}</li>
       </ul>
     </div>
-    <div ng-repeat="(key, tab) in tabs" ng-if="activeTab==key">
+    <div ng-repeat="(key, tab) in tabs" ng-show="activeTab==key">
       <h2>Attendance:</h2>
       <h5>{{tab.attendance}}</h5>
     </div>
