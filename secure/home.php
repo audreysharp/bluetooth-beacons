@@ -50,6 +50,9 @@ $affiliation = $headers['affiliation'];
       <ul>
         <li>{{onyen}}</li>
         <li>{{pid}}</li>
+        <li>{{firstName}} {{lastName}}</li>
+        <li>{{email}}</li>
+        <li>{{affiliation}}</li>
       </ul>
     </div>
     <div ng-repeat="(key, tab) in tabs">
