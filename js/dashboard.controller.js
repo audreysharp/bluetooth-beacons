@@ -54,11 +54,6 @@ function DashboardController($scope, $http) {
     }
   }
 
-  dashbaord.setTab = function(key) {
-    dashboard.activeTab = key;
-    
-  }
-
   function createTabs() {
     dashboard.tabs = {};
     dashboard.records.forEach(function(value, key){
