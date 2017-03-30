@@ -20,6 +20,8 @@ $affiliation = $headers['affiliation'];
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
+  <script src="https://www.w3schools.com/lib/w3data.js"></script>
+  <script>w3IncludeHTML()</script>
 </head>
 <body>
   <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>'; affiliation = '<?php echo $affiliation; ?>'; setAccess(); getAttendance();">
@@ -39,14 +41,20 @@ $affiliation = $headers['affiliation'];
         </ul>
       </div>
     </nav>
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="/secure/home.html">Home</a></li>
-      <li ng-repeat="(key, tab) in tabs"><a href="#">{{key}}</a></li>
+    <ul class="nav nav-tabs" ng-init="activeTab='Home'">
+      <li ng-class="{active: activeTab=='Home'}"><a ng-click="activeTab='Home'">Home</a></li>
+      <li ng-repeat="(key, tab) in tabs" ng-class="{active: activeTab==key}"><a ng-click="activeTab=key">{{key}}</a></li>
     </ul>
-    <h2>Info:</h2>
-    <ul>
-      <li>{{onyen}}</li>
-      <li>{{pid}}</li>
-    </ul>
+    <div ng-if="activeTab=='Home'">
+      <h2>Info:</h2>
+      <ul>
+        <li>{{onyen}}</li>
+        <li>{{pid}}</li>
+      </ul>
+    </div>
+    <div ng-repeat="(key, tab) in tabs" ng-if="activeTab==key">
+      <h2>Attendance:</h2>
+      <h5>{{tab.attendance}}</h5>
+    </div>
   </div>
 </body>
