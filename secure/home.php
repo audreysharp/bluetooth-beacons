@@ -41,7 +41,7 @@ $affiliation = $headers['affiliation'];
     </nav>
     <ul class="nav nav-tabs">
       <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-      <li ng-repeat="(key, tab) in tabs"><a href="#{{key}}" data-toggle="tab">{{key}}</a></li>
+      <li ng-repeat="(key, tab) in tabs"><a ng-href="#{{key}}" data-toggle="tab">{{key}}</a></li>
     </ul>
     <div class="tab-content clearfix">
       <div class="tab-pane active" id="home">
