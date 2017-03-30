@@ -20,8 +20,6 @@ $affiliation = $headers['affiliation'];
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
-  <script src="https://www.w3schools.com/lib/w3data.js"></script>
-  <script>w3IncludeHTML()</script>
 </head>
 <body>
   <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>'; affiliation = '<?php echo $affiliation; ?>'; setAccess(); getAttendance();">
@@ -42,23 +40,25 @@ $affiliation = $headers['affiliation'];
       </div>
     </nav>
     <ul class="nav nav-tabs">
-      <li class="active"><a>Home</a></li>
-      <li ng-repeat="(key, tab) in tabs"><a ng-click="activeTab=key">{{key}}</a></li>
+      <li class="active"><a href="#home">Home</a></li>
+      <li ng-repeat="(key, tab) in tabs"><a href="#{{key}}">{{key}}</a></li>
     </ul>
-    <div >
-      <h2>Info:</h2>
-      <ul>
-        <li>{{onyen}}</li>
-        <li>{{pid}}</li>
-        <li>{{firstName}} {{lastName}}</li>
-        <li>{{email}}</li>
-        <li>{{affiliation}}</li>
-      </ul>
-    </div>
-    <div ng-repeat="(key, tab) in tabs">
-      <h2>{{key}} Attendance:</h2>
-      <h5>{{tab.attendance}}</h5>
-      <h5>{{tab.records}}</h5>
+    <div class="tab-content clearfix">
+      <div class="tab-pane active" id="home">
+        <h2>Info:</h2>
+        <ul>
+          <li>{{onyen}}</li>
+          <li>{{pid}}</li>
+          <li>{{firstName}} {{lastName}}</li>
+          <li>{{email}}</li>
+          <li>{{affiliation}}</li>
+        </ul>
+      </div>
+      <div ng-repeat="(key, tab) in tabs" class="tab-pane" id="{{key}}">
+        <h2>{{key}} Attendance:</h2>
+        <h5>{{tab.attendance}}</h5>
+        <h5>{{tab.records}}</h5>
+      </div>
     </div>
   </div>
 </body>
