@@ -16,6 +16,7 @@ $affiliation = $headers['affiliation'];
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bluetooth Beacons</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
@@ -40,7 +41,7 @@ $affiliation = $headers['affiliation'];
       </div>
     </nav>
     <ul class="nav nav-tabs">
-      <li><a href="#home" data-toggle="tab">Home</a></li>
+      <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
       <li ng-repeat="(key, value) in tabs"><a ng-href="#{{key}}" data-toggle="tab">{{key}}</a></li>
     </ul>
     <div class="tab-content">
