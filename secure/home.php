@@ -44,7 +44,7 @@ $affiliation = $headers['affiliation'];
       <li ng-repeat="(key, value) in tabs"><a ng-href="#{{key}}" data-toggle="tab">{{key}}</a></li>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane active" id="home">
+      <div class="tab-pane active" id="home" name="home">
         <h2>Info:</h2>
         <ul>
           <li>{{onyen}}</li>
@@ -54,7 +54,7 @@ $affiliation = $headers['affiliation'];
           <li>{{affiliation}}</li>
         </ul>
       </div>
-      <div ng-repeat="(key, value) in tabs" ng-attr-id="{{key}}" class="tab-pane">
+      <div ng-repeat="(key, value) in tabs" id="{{key}}" name="{{key}}" class="tab-pane">
         <h2>{{key}} Attendance:</h2>
         <h5>{{value.attendance}}</h5>
         <h5>{{value.records}}</h5>
