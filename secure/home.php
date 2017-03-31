@@ -16,17 +16,10 @@ $affiliation = $headers['affiliation'];
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bluetooth Beacons</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
-  <script>
-   $('#courseTabs a').click(function (e) {
-     e.preventDefault()
-     $(this).tab('show')
-   })
-</script>
 </head>
 <body>
   <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>'; affiliation = '<?php echo $affiliation; ?>'; setAccess(); getAttendance();">
@@ -68,4 +61,6 @@ $affiliation = $headers['affiliation'];
       </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
