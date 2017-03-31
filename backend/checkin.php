@@ -12,10 +12,13 @@ $db = new DBFunctions();
 
 //Check-in request paramters
 $onyen = $request['onyen'];
-$course = $request['course'];
+$role = $request['role'];
+$course_dept = $request['department'];
+$course_num = $request['number'];
+$course_sec = $request['section'];
 
 // Verify and store credentials
-$result = $db->addCheckIn($onyen, $course);
+$result = $db->addCheckIn($onyen, $role, $course_dept, $course_num, $course_sec);
 
 // Begin creating response
 $code = $result['code'];
@@ -25,8 +28,11 @@ if($code == 0) {
   $response['message'] = 'Check-in Successful';
   $response['result'] = $result['record'];
 } else {
-  if($code == 5) {
-    $response['message'] = 'Couldn\'t store user';
+  if($code == 1) {
+    $response['message'] = 'Couldn\'t check in';
+  }
+  if($code == 2) {
+    $response['message'] = 'Course doesn\'t exist';
   }
 }
 

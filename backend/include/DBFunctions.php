@@ -18,20 +18,32 @@ class DBFunctions {
 	}
 
 	// Add a check in record
-	public function addCheckIn($onyen, $course) {
+	public function addCheckIn($onyen, $role, $course_dept, $course_num, $course_sec) {
 		$db = $this->__construct();
-		$query = $db->query("INSERT INTO attendance(onyen, course, timestamp) VALUES('$onyen', '$course', CURRENT_TIMESTAMP())") or die(mysqli_error());
-		if($query) {
-			// Successful insert
-			$result['code'] = 0;
-			$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error());
-			$record = $query->fetch_array(MYSQLI_ASSOC);
-			$result['record'] = $record;
+
+		$course_id = getCourseID($course_dept, $course_num, $course_sec);
+		if($course_id){
+			$query = $db->query("INSERT INTO attendance(onyen, course_id), timestamp) VALUES('$onyen', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error());
+			if($query) {
+				// Successful insert
+				$result['code'] = 0;
+				$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error());
+				$record = $query->fetch_array(MYSQLI_ASSOC);
+				$result['record'] = $record;
+			} else {
+				// Insert failed
+				$result['code'] = 1;
+			}
 		} else {
-			// Insert failed
-			$result['code'] = 5;
+			// Course doesn't exist
+			$result['code'] = 2;
 		}
 		return $result;
+	}
+
+	public function getCourseID($course_dept, $course_num, $course_sec) {
+		$query = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error());
+		return $query;
 	}
 
 	// Get all student attendance record
