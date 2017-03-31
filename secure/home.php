@@ -21,6 +21,12 @@ $affiliation = $headers['affiliation'];
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
+  <script>
+   $('#courseTabs a').click(function (e) {
+     e.preventDefault()
+     $(this).tab('show')
+   })
+</script>
 </head>
 <body>
   <div ng-app="Dashboard" ng-controller="DashboardController" ng-init="onyen='<?php echo $onyen; ?>'; pid='<?php echo $pid; ?>'; firstName = '<?php echo $firstName; ?>'; lastName = '<?php echo $lastName; ?>'; email = '<?php echo $email; ?>'; affiliation = '<?php echo $affiliation; ?>'; setAccess(); getAttendance();">
@@ -40,7 +46,7 @@ $affiliation = $headers['affiliation'];
         </ul>
       </div>
     </nav>
-    <ul class="nav nav-tabs">
+    <ul id="courseTabs" class="nav nav-tabs">
       <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
       <li ng-repeat="(key, value) in tabs"><a ng-href="#{{key}}" data-toggle="tab">{{key}}</a></li>
     </ul>
