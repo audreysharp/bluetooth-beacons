@@ -7,7 +7,7 @@ $pid = $headers['pid'];
 $firstName = $headers['givenName'];
 $lastName = $headers['sn'];
 $email = $headers['mail'];
-$affiliation = $headers['affiliation'];
+$affiliation = explode(";", $headers['affiliation']);
 
 ?>
 
@@ -65,9 +65,9 @@ $affiliation = $headers['affiliation'];
       </div>
     </section>
     <section ng-if="isInstructor">
-
+      
     </section>
   </div>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="/static/boostrap/js/bootstrap.min.js"></script>
 </body>
