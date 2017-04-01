@@ -65,9 +65,9 @@ $affiliation = explode(";", $headers['affiliation']);
       </div>
     </section>
     <section ng-if="isInstructor">
-      
+
     </section>
   </div>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="/static/boostrap/js/bootstrap.min.js"></script>
+  <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
