@@ -12,7 +12,8 @@ function DashboardController($scope, $http) {
     var STUDENT_AFFILIATION = "student@unc.edu";
     var INSTRUCTOR_AFFILIATION = "faculty@unc.edu";
     var STAFF_AFFILIATION = "staff@unc.edu";
-    for(var affiliation in dashboard.affiliation) {
+    var affiliations = dashboard.affiliation.split(";");
+    for(var affiliation in affiliations) {
       if(angular.equals(STUDENT_AFFILIATION, affiliation)) {
         dashboard.isStudent = true;
       }

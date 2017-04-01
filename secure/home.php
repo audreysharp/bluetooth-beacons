@@ -1,14 +1,11 @@
 <?php
-
 $headers = getallheaders();
-
 $onyen = $headers['uid'];
 $pid = $headers['pid'];
 $firstName = $headers['givenName'];
 $lastName = $headers['sn'];
 $email = $headers['mail'];
-$affiliation = explode(";", $headers['affiliation']);
-
+$affiliation = $headers['affiliation'];
 ?>
 
 <head>
