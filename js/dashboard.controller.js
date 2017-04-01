@@ -13,14 +13,14 @@ function DashboardController($scope, $http) {
     var INSTRUCTOR_AFFILIATION = "faculty@unc.edu";
     var STAFF_AFFILIATION = "staff@unc.edu";
     var affiliations = dashboard.affiliation.split(";");
-    for(var affiliation in affiliations) {
-      if(angular.equals(STUDENT_AFFILIATION, affiliation)) {
+    affiliations.forEach(function(value, key)) {
+      if(angular.equals(STUDENT_AFFILIATION, value)) {
         dashboard.isStudent = true;
       }
-      if(angular.equals(INSTRUCTOR_AFFILIATION, affiliation)) {
+      if(angular.equals(INSTRUCTOR_AFFILIATION, value)) {
         dashboard.isInstructor = true;
       }
-      if(angular.equals(STAFF_AFFILIATION, affiliation)) {
+      if(angular.equals(STAFF_AFFILIATION, value)) {
         dashboard.isStaff = true;
       }
     }
