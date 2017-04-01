@@ -63,12 +63,13 @@ class DBFunctions {
 			// Successful insert
 			$result['code'] = 0;
 			$query = $db->query("SELECT * FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error());
-			$record = $query->fetch_array(MYSQLI_ASSOC);
+			$record = $query->fetch_all(MYSQLI_ASSOC);
 			$result['record'] = $record;
 		} else {
 			// Insert failed
 			$result['code'] = 1;
 		}
+		return $result;
 	}
 
 }
