@@ -21,7 +21,7 @@ class DBFunctions {
 	public function addCheckIn($onyen, $role, $course_dept, $course_num, $course_sec) {
 		$db = $this->__construct();
 
-		$course_id = getCourseID($course_dept, $course_num, $course_sec);
+		$course_id = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error());
 		if($course_id){
 			$query = $db->query("INSERT INTO attendance(onyen, course_id), timestamp) VALUES('$onyen', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error());
 			if($query) {
@@ -39,11 +39,6 @@ class DBFunctions {
 			$result['code'] = 2;
 		}
 		return $result;
-	}
-
-	public function getCourseID($course_dept, $course_num, $course_sec) {
-		$query = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error());
-		return $query;
 	}
 
 	// Get all student attendance record
