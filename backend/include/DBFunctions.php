@@ -23,7 +23,7 @@ class DBFunctions {
 
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error());
 		if($query_id && $query_id->num_rows > 0){
-			$course_id = $course_id->fetch_array();
+			$course_id = $query_id->fetch_array();
 			$query = $db->query("INSERT INTO attendance(onyen, role, course_id, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error());
 			if($query) {
 				// Successful insert
