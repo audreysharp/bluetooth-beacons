@@ -58,7 +58,7 @@ function DashboardController($scope, $http) {
   function createTabs() {
     dashboard.tabs = {};
     dashboard.records.forEach(function(value, key){
-      var courseName = value.course;
+      var courseName = value.department + value.number + "-" + value.section;
       if(dashboard.tabs[courseName]){
         dashboard.tabs[courseName].attendance++;
       } else {
