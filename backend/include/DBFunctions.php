@@ -46,7 +46,7 @@ class DBFunctions {
 	public function getAttendance($onyen) {
 		$db = $this->__construct();
 
-		$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error());
+		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM attendance LEFT JOIN courses ON attendance.course_id = courses.sno WHERE onyen = '$onyen'") or die(mysqli_error());
 		if($query) {
 			$result['code'] = 0;
 			$records = $query->fetch_all(MYSQLI_ASSOC);
