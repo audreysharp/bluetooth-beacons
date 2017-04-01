@@ -17,7 +17,6 @@ $course_dept = $request['department'];
 $course_num = $request['number'];
 $course_sec = $request['section'];
 
-// Verify and store credentials
 $result = $db->addCheckIn($onyen, $role, $course_dept, $course_num, $course_sec);
 
 // Begin creating response
