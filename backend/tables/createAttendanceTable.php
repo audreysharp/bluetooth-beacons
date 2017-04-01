@@ -4,7 +4,7 @@ Create attendance table
 **/
 
 // Include Database handler
-require_once '/backend/include/DBConnect.php';
+require_once '/include/DBConnect.php';
 $db = new DBConnect();
 $q = "CREATE TABLE attendance (
     sno int(11) NOT NULL AUTO_INCREMENT,
