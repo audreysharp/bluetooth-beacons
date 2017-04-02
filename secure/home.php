@@ -26,17 +26,17 @@ $affiliation = $headers['affiliation'];
           <a class="navbar-brand" href="#">Bluetooth Beacon Attendance</a>
         </div>
         <ul class="nav navbar-nav" ng-if="isStudent">
-          <li><a href="#">Student Menu</a></li>
+          <li><a href ng-click="setMode(true,false,false)">Administrator Menu</a></li>
         </ul>
-        <ul class="nav navbar-nav" ng-if="isInstructor">
-          <li><a href="#">Instructor Menu</a></li>
+        <ul class="nav navbar-nav" ng-if="isStudent">
+          <li><a href ng-click="setMode(false,true,false)">Instructor Menu</a></li>
         </ul>
-        <ul class="nav navbar-nav" ng-if="isAdministrator">
-          <li><a href="#">Administrator Menu</a></li>
+        <ul class="nav navbar-nav" ng-if="isStudent">
+          <li><a href ng-click="setMode(false,false,true)">Student Menu</a></li>
         </ul>
       </div>
     </nav>
-    <section ng-if="isStudent">
+    <section ng-if="studentMode">
       <div ng-init="getAttendance()">
         <ul id="courseTabs" class="nav nav-tabs">
           <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
@@ -60,9 +60,6 @@ $affiliation = $headers['affiliation'];
           </div>
         </div>
       </div>
-    </section>
-    <section ng-if="isInstructor">
-
     </section>
   </div>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>

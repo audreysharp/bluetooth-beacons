@@ -14,8 +14,9 @@ $db = new DBFunctions();
 $department = $request['department'];
 $number = $request['number'];
 $section = $request['section'];
+$creator = $request['creator'];
 
-$result = $db->addCourse($department, $number, $section);
+$result = $db->addCourse($department, $number, $section, $creator);
 
 // Begin creating response
 $code = $result['code'];

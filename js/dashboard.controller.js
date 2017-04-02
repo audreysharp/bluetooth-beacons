@@ -1,5 +1,5 @@
 angular
-.module("Dashboard", [])
+.module("Dashboard", ["ngRoute"])
 .controller("DashboardController", DashboardController);
 
 DashboardController.$inject = ['$scope', '$http'];
@@ -27,12 +27,33 @@ function DashboardController($scope, $http) {
     if(dashboard.isStaff && dashbaord.isFaculty) {
       dashboard.isAdministrator = true;
     }
+    if(dashboard.isAdministrator) {
+      dashboard.setMode(true,false,false);
+    } else if (dashboard.isInstructor) {
+      dashboard.setMode(false,true,false);
+    } else if (dashboard.isStudent) {
+      dashboard.setMode(false,false,true);
+    }
+  }
+
+  dashboard.setMode = function (administratorMode, instructorMode, studentMode) {
+    dashboard.administratorMode = administratorMode;
+    dashboard.instructorMode = instructorMode;
+    dashbaord.studentMode = studentMode;
   }
 
   dashboard.getAttendance = function () {
+    var mUrl;
+    if(studentMode) {
+      mUrl = '/backend/getAttendance.php';
+    } else if(instructorMode) {
+      mUrl = '/backend/getCoursesByAdmin.php';
+    } else if(administratorMode) {
+      mUrl = '';
+    }
     $http({
       method: 'POST',
-      url: '/backend/getAttendance.php',
+      url: mUrl,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function(obj) {
         var str = [];
@@ -54,6 +75,8 @@ function DashboardController($scope, $http) {
       createTabs();
     }
   }
+
+
 
   function createTabs() {
     dashboard.tabs = {};
