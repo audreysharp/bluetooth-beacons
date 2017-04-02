@@ -36,7 +36,7 @@ $affiliation = $headers['affiliation'];
         </ul>
       </div>
     </nav>
-    <section ng-if="studentMode">
+    <section>
       <div ng-init="getAttendance()">
         <ul id="courseTabs" class="nav nav-tabs">
           <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
