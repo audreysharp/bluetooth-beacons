@@ -43,13 +43,15 @@ function DashboardController($scope, $http) {
   }
 
   dashboard.getAttendance = function () {
+    //TODO: REMOVE
+    dashboard.setMode(false,false,true);
     var mUrl;
-    if(studentMode) {
+    if(dashboard.studentMode) {
       mUrl = '/backend/getAttendance.php';
-    } else if(instructorMode) {
-      mUrl = '/backend/getCoursesByAdmin.php';
-    } else if(administratorMode) {
+    } else if(dashboard.instructorMode) {
       mUrl = '';
+    } else if(dashboard.administratorMode) {
+      mUrl = '/backend/getCoursesByAdmin.php';
     }
     $http({
       method: 'POST',
