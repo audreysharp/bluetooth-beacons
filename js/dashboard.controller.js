@@ -24,7 +24,7 @@ function DashboardController($scope, $http) {
         dashboard.isStaff = true;
       }
     });
-    if(dashboard.isStaff && dashbaord.isFaculty) {
+    if(dashboard.isStaff && dashboard.isFaculty) {
       dashboard.isAdministrator = true;
     }
     if(dashboard.isAdministrator) {
@@ -39,7 +39,7 @@ function DashboardController($scope, $http) {
   dashboard.setMode = function (administratorMode, instructorMode, studentMode) {
     dashboard.administratorMode = administratorMode;
     dashboard.instructorMode = instructorMode;
-    dashbaord.studentMode = studentMode;
+    dashboard.studentMode = studentMode;
   }
 
   dashboard.getAttendance = function () {
