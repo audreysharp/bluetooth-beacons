@@ -1,5 +1,5 @@
 angular
-.module("Dashboard", ["ngRoute"])
+.module("Dashboard", [])
 .controller("DashboardController", DashboardController);
 
 DashboardController.$inject = ['$scope', '$http'];
