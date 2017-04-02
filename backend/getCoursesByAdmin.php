@@ -11,7 +11,7 @@ require_once 'include/DBFunctions.php';
 $db = new DBFunctions();
 
 // Check-in request paramters
-$creator = $request['creator'];
+$creator = $request['onyen'];
 
 // Verify and store credentials
 $result = $db->getCoursesByAdmin($creator);

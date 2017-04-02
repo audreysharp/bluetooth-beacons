@@ -78,8 +78,6 @@ function DashboardController($scope, $http) {
     }
   }
 
-
-
   function createTabs() {
     dashboard.tabs = {};
     dashboard.records.forEach(function(value, key){
