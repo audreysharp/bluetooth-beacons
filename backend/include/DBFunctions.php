@@ -24,7 +24,7 @@ class DBFunctions {
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error());
 		if($query_id && $query_id->num_rows > 0){
 			$course_id = $query_id->fetch_assoc()['sno'];
-			$query = $db->query("INSERT INTO attendance(onyen, role, course_id, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error());
+			$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error());
 			if($query) {
 				// Successful insert
 				$result['code'] = 0;
@@ -46,7 +46,7 @@ class DBFunctions {
 	public function getAttendance($onyen) {
 		$db = $this->__construct();
 
-		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM attendance LEFT JOIN courses ON attendance.course_id = courses.sno WHERE onyen = '$onyen'") or die(mysqli_error());
+		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM attendance LEFT JOIN courses ON attendance.courseID = courses.sno WHERE onyen = '$onyen'") or die(mysqli_error());
 		if($query) {
 			$result['code'] = 0;
 			$records = $query->fetch_all(MYSQLI_ASSOC);
