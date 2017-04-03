@@ -73,7 +73,7 @@ $affiliation = $headers['affiliation'];
                 <label for="courseSection">Course Section:</label>
                 <input type="text" class="form-control" id="courseDept" ng-model="fields.section" placeholder="ex: 001">
               </div>
-              <button type="submit" class="btn btn-default" ng-submit="addCourse()">Submit</button>
+              <button type="submit" class="btn btn-default" ng-click="DashboardController.addCourse()">Submit</button>
             </form>
           </div>
         </div>
