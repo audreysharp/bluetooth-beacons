@@ -1,6 +1,6 @@
 angular
 .module("Dashboard", [])
-.controller("DashboardController", DashboardController);
+.controller("DashboardController", DashboardController)
 
 DashboardController.$inject = ['$scope', '$http'];
 

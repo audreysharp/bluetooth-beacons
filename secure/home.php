@@ -63,17 +63,17 @@ $affiliation = $headers['affiliation'];
             <form name="courseForm">
               <div class="form-group">
                 <label for="courseDept">4 Letter Department Abbreviation:</label>
-                <input type="text" class="form-control" id="courseDept" ng-model="fields.department" placeholder="ex: COMP">
+                <input type="text" class="form-control" id="courseDept" ng-model="fields.department" placeholder="ex: COMP"></input>
               </div>
               <div class="form-group">
                 <label for="courseNum">Course Number:</label>
-                <input type="text" class="form-control" id="courseDept" ng-model="fields.number" placeholder="ex: 523">
+                <input type="text" class="form-control" id="courseDept" ng-model="fields.number" placeholder="ex: 523"></input>
               </div>
               <div class="form-group">
                 <label for="courseSection">Course Section:</label>
-                <input type="text" class="form-control" id="courseDept" ng-model="fields.section" placeholder="ex: 001">
+                <input type="text" class="form-control" id="courseDept" ng-model="fields.section" placeholder="ex: 001"></input>
               </div>
-              <button type="submit" class="btn btn-default" ng-click="DashboardController.addCourse()">Submit</button>
+              <button type="submit" class="btn btn-default" ng-click="addCourse()">Submit</button>
             </form>
           </div>
         </div>
