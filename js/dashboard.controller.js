@@ -79,29 +79,27 @@ function DashboardController($scope, $http) {
   }
 
   dashboard.addCourse = function () {
-    if(dashboard.courseForm.$valid) {
-      dashboard.fields.creator = dashboard.onyen;
-      $http({
-        method: 'POST',
-        url: '/backend/createCourse.php',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        transformRequest: function(obj) {
-          var str = [];
-          for(var p in obj)
-          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-          return str.join("&");
-        },
-        data: dashboard.fields
-      }).then(successCallback, errorCallback);
+    dashboard.fields.creator = dashboard.onyen;
+    $http({
+      method: 'POST',
+      url: '/backend/createCourse.php',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      },
+      data: dashboard.fields
+    }).then(successCallback, errorCallback);
 
-      function successCallback(response) {
-        alert("success");
-        dashboard.getCourses();
-      }
+    function successCallback(response) {
+      alert("success");
+      dashboard.getCourses();
+    }
 
-      function errorCallback(response) {
-        alert("fail");
-      }
+    function errorCallback(response) {
+      alert("fail");
     }
   }
 
