@@ -78,7 +78,7 @@ function DashboardController($scope, $http) {
     }
   }
 
-  function addCourse() {
+  dashboard.addCourse = function () {
     if(dashboard.courseForm.$valid) {
       dashboard.fields.creator = dashboard.onyen;
       $http({
