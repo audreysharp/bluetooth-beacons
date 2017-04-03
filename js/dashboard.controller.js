@@ -44,7 +44,7 @@ function DashboardController($scope, $http) {
 
   dashboard.getAttendance = function () {
     //TODO: REMOVE
-    dashboard.setMode(false,false,true);
+    dashboard.setMode(true,false,false);
     var mUrl;
     if(dashboard.studentMode) {
       mUrl = '/backend/getAttendance.php';
