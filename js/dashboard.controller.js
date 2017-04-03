@@ -42,7 +42,7 @@ function DashboardController($scope, $http) {
     dashboard.studentMode = studentMode;
   }
 
-  dashboard.getAttendance = function () {
+  dashboard.getCourses = function () {
     //TODO: REMOVE
     dashboard.setMode(true,false,false);
     var mUrl;
@@ -75,6 +75,32 @@ function DashboardController($scope, $http) {
       alert("fail");
       dashboard.records = [];
       createTabs();
+    }
+  }
+
+  function addCourse() {
+    if(dashboard.courseForm.$valid) {
+      $http({
+        method: 'POST',
+        url: '/backend/createCourse.php',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        transformRequest: function(obj) {
+          var str = [];
+          for(var p in obj)
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          return str.join("&");
+        },
+        data: dashboard.fields
+      }).then(successCallback, errorCallback);
+
+      function successCallback(response) {
+        alert("success");
+        dashboard.getCourses();
+      }
+
+      function errorCallback(response) {
+        alert("fail");
+      }
     }
   }
 

@@ -37,10 +37,11 @@ $affiliation = $headers['affiliation'];
       </div>
     </nav>
     <section>
-      <div ng-init="getAttendance()">
+      <div ng-init="getCourses()">
         <ul id="courseTabs" class="nav nav-tabs">
           <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
           <li ng-repeat="(key, value) in tabs"><a ng-href="#{{key}}" data-toggle="tab">{{key}}</a></li>
+          <li ng-if="administratorMode"><a ng-href="add" data-toggle="tab">+</a></li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="home" name="home">
@@ -57,6 +58,23 @@ $affiliation = $headers['affiliation'];
             <h2>{{key}} Attendance:</h2>
             <h5>{{value.attendance}}</h5>
             <h5>{{value.records}}</h5>
+          </div>
+          <div id="add" name="add" class="tab-pane">
+            <form name="courseForm">
+              <div class="form-group">
+                <label for="courseDept">4 Letter Department Abbreviation:</label>
+                <input type="text" class="form-control" id="courseDept" ng-model="fields.department" placeholder="ex: COMP">
+              </div>
+              <div class="form-group">
+                <label for="courseNum">Course Number:</label>
+                <input type="text" class="form-control" id="courseDept" ng-model="fields.number" placeholder="ex: 523">
+              </div>
+              <div class="form-group">
+                <label for="courseSection">Course Section:</label>
+                <input type="text" class="form-control" id="courseDept" ng-model="fields.section" placeholder="ex: 001">
+              </div>
+              <button type="submit" class="btn btn-default" ng-submit="addCourse()">Submit</button>
+            </form>
           </div>
         </div>
       </div>
