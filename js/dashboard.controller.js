@@ -80,6 +80,7 @@ function DashboardController($scope, $http) {
 
   function addCourse() {
     if(dashboard.courseForm.$valid) {
+      dashboard.fields.creator = dashboard.onyen;
       $http({
         method: 'POST',
         url: '/backend/createCourse.php',
