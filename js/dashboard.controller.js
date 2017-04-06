@@ -103,7 +103,7 @@ function DashboardController($scope, $http) {
     }
   }
 
-  dashboard.uploadRoster() {
+  dashboard.uploadRoster() = function () {
     var f = document.getElementById('file').files[0],
     r = new FileReader();
     r.onloadend = function(e){
