@@ -103,6 +103,15 @@ function DashboardController($scope, $http) {
     }
   }
 
+  dashboard.uploadRoster() {
+    var f = document.getElementById('file').files[0],
+    r = new FileReader();
+    r.onloadend = function(e){
+      var data = e.target.result;
+      alert(data);
+    }
+  }
+
   function createTabs() {
     dashboard.tabs = {};
     if(dashboard.records != null) {

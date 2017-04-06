@@ -55,9 +55,19 @@ $affiliation = $headers['affiliation'];
             </ul>
           </div>
           <div ng-repeat="(key, value) in tabs" id="{{key}}" name="{{key}}" class="tab-pane">
-            <h2>{{key}} Attendance:</h2>
-            <h5>{{value.attendance}}</h5>
-            <h5>{{value.records}}</h5>
+            <div ng-if="studentMode">
+              <h2>{{key}} Attendance:</h2>
+              <h5>{{value.attendance}}</h5>
+              <h5>{{value.records}}</h5>
+            </div>
+            <div ng-if="instructorMode">
+              <label class="control-label">Select File</label>
+              <input id="rosterFile" type="file" class="file">
+              <button ng-click="uploadRoster()">Submit</button>
+            </div>
+            <div ng-if="administratorMode">
+            </div>
+
           </div>
           <div id="add" name="add" class="tab-pane">
             <form name="courseForm">
