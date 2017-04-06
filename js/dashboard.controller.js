@@ -103,13 +103,14 @@ function DashboardController($scope, $http) {
     }
   }
 
-  dashboard.uploadRoster() = function () {
-    var f = document.getElementById('file').files[0],
+  dashboard.uploadRoster = function () {
+    var f = document.getElementById('rosterFile').files[0],
     r = new FileReader();
     r.onloadend = function(e){
       var data = e.target.result;
-      alert(data);
+      dashboard.roster = data.split("\n");
     }
+    r.readAsBinaryString(f);
   }
 
   function createTabs() {
