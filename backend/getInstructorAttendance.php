@@ -4,7 +4,7 @@
 $request = $_POST;
 
 // Create response array
-$response = array('function' => 'getAttendance', 'code' => -1, 'result' => array());
+$response = array('function' => 'getInstructorAttendance', 'code' => -1, 'result' => array());
 
 // Include Database handler
 require_once 'include/DBFunctions.php';
@@ -14,7 +14,7 @@ $db = new DBFunctions();
 $onyen = $request['onyen'];
 
 // Verify and store credentials
-$result = $db->getAttendance($onyen);
+$result = $db->getInstructorAttendance($onyen);
 
 // Begin creating response
 $code = $result['code'];

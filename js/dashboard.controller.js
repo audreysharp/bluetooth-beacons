@@ -40,16 +40,16 @@ function DashboardController($scope, $http) {
     dashboard.administratorMode = administratorMode;
     dashboard.instructorMode = instructorMode;
     dashboard.studentMode = studentMode;
+    dashboard.getCourses();
   }
 
   dashboard.getCourses = function () {
-    //TODO: REMOVE
-    dashboard.setMode(true,false,false);
     var mUrl;
+    var postData = {onyen: dashboard.onyen};
     if(dashboard.studentMode) {
-      mUrl = '/backend/getAttendance.php';
+      mUrl = '/backend/getStudentAttendance.php';
     } else if(dashboard.instructorMode) {
-      mUrl = '';
+      mUrl = '/backend/getInstructorAttendance.php';
     } else if(dashboard.administratorMode) {
       mUrl = '/backend/getCoursesByAdmin.php';
     }
@@ -63,7 +63,7 @@ function DashboardController($scope, $http) {
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
       },
-      data: {onyen: dashboard.onyen}
+      data: postData
     }).then(successCallback, errorCallback);
 
     function successCallback(response) {
@@ -105,6 +105,7 @@ function DashboardController($scope, $http) {
 
   function createTabs() {
     dashboard.tabs = {};
+    if(dashboard.records != null) {}
     dashboard.records.forEach(function(value, key){
       var courseName = value.department + value.number + "-" + value.section;
       if(dashboard.tabs[courseName]){
