@@ -45,7 +45,7 @@ class DBFunctions {
 	// Get student attendance records
 	public function getStudentAttendance($onyen) {
 		$role = 'student';
-		return getAttendance($onyen, $role);
+		return $this->getAttendance($onyen, $role);
 	}
 
 	// Get instructor attendance records
