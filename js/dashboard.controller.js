@@ -105,14 +105,15 @@ function DashboardController($scope, $http) {
 
   function createTabs() {
     dashboard.tabs = {};
-    if(dashboard.records != null) {}
-    dashboard.records.forEach(function(value, key){
-      var courseName = value.department + value.number + "-" + value.section;
-      if(dashboard.tabs[courseName]){
-        dashboard.tabs[courseName].attendance++;
-      } else {
-        dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
-      }
-    });
+    if(dashboard.records != null) {
+      dashboard.records.forEach(function(value, key){
+        var courseName = value.department + value.number + "-" + value.section;
+        if(dashboard.tabs[courseName]){
+          dashboard.tabs[courseName].attendance++;
+        } else {
+          dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
+        }
+      });
+    }
   }
 }

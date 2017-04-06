@@ -51,10 +51,10 @@ class DBFunctions {
 	// Get instructor attendance records
 	public function getInstructorAttendance($onyen) {
 		$role = 'teacher';
-		return getAttendance($onyen, $role);
+		return $this->getAttendance($onyen, $role);
 	}
 
-	private function getAttendance($onyen, $role) {
+	function getAttendance($onyen, $role) {
 		$db = $this->__construct();
 		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM attendance LEFT JOIN courses ON attendance.courseID = courses.sno WHERE onyen = '$onyen' AND role='$role'") or die(mysqli_error());
 		if($query) {
