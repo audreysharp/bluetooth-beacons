@@ -58,12 +58,12 @@ class DBFunctions {
 		$db = $this->__construct();
 
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
-		if($query_id && $query_id->num_rows > 0){
+		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
-			$query = $db->query("SELECT * FROM attendance WHERE sno = '$course_id'") or die(mysqli_error($db));
-			$records = $query->fetch_all(MYSQLI_ARRAY);
-			$result['code'] = 0;
+			$query = $db->query("SELECT onyen, COUNT(*) AS count FROM attendance WHERE courseID = '$course_id' AND role = 'student' GROUP BY onyen") or die(mysqli_error($db));
+			$records = $query->fetch_all(MYSQLI_ASSOC);
 			$result['records'] = $records;
+			$result['code'] = 0;
 			return $result;
 		}
 	}

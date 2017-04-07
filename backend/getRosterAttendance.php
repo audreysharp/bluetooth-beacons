@@ -11,7 +11,6 @@ require_once 'include/DBFunctions.php';
 $db = new DBFunctions();
 
 // Check-in request paramters
-$roster = $request['roster'];
 $department = $request['department'];
 $number = $request['number'];
 $section = $request['section'];
