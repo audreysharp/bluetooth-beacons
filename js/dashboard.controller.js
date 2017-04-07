@@ -103,14 +103,44 @@ function DashboardController($scope, $http) {
     }
   }
 
-  dashboard.uploadRoster = function () {
+  dashboard.uploadRoster = function (record) {
     var f = document.getElementById('rosterFile').files[0],
     r = new FileReader();
     r.onloadend = function(e){
       var data = e.target.result;
       dashboard.roster = data.split("\n");
+
+      // Get all attendance from students
+      $http({
+        method: 'POST',
+        url: '/backend/getRosterAttendance.php',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        transformRequest: function(obj) {
+          var str = [];
+          for(var p in obj)
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          return str.join("&");
+        },
+        data: {department : record.department, number : record.number, section : record.section}
+      }).then(successCallback, errorCallback);
+
+      function successCallback(response) {
+        alert("success");
+        dashboard.roster.forEach(function(value, key) {
+        });
+        dashboard.instructor.attendance = [];
+      }
+
+      function errorCallback(response) {
+        alert("fail");
+      }
     }
     r.readAsBinaryString(f);
+
+  }
+
+  dashboard.didAttend = function(onyen) {
+
   }
 
   function createTabs() {
