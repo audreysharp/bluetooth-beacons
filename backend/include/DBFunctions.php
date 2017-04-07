@@ -57,7 +57,7 @@ class DBFunctions {
 	public function getRosterAttendance($department, $number, $section) {
 		$db = $this->__construct();
 
-		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error($db));
+		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0){
 			$course_id = $query_id->fetch_assoc()['sno'];
 			$query = $db->query("SELECT * FROM attendance WHERE sno = '$course_id'") or die(mysqli_error($db));
