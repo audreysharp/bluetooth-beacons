@@ -121,14 +121,22 @@ function DashboardController($scope, $http) {
           str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
           return str.join("&");
         },
-        data: {department : record.department, number : record.number, section : record.section}
+        data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section}
       }).then(successCallback, errorCallback);
 
       function successCallback(response) {
         alert("success");
+
+        dashboard.attendance = {};
         dashboard.roster.forEach(function(value, key) {
+          response.data.result.forEach(function(value2, key2){
+            if(angular.equals(value, value2.onyen)){
+              dashboard.attendance[value] = value2.count;
+              return;
+            }
+          });
+          dashboard.attendance[value] = 0;
         });
-        dashboard.instructor.attendance = [];
       }
 
       function errorCallback(response) {
@@ -140,7 +148,7 @@ function DashboardController($scope, $http) {
   }
 
   dashboard.didAttend = function(onyen) {
-
+    return dashboard.attendance[onyen] > 0;
   }
 
   function createTabs() {
