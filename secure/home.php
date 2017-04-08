@@ -63,11 +63,11 @@ $affiliation = $headers['affiliation'];
             <div ng-if="instructorMode">
               <label class="control-label">Select File</label>
               <input id="rosterFile" type="file" class="file">
-              <button ng-click="uploadRoster(value)">Submit</button>
+              <button ng-click="uploadRoster(value.trim())">Submit</button>
               <ul>
                 <li ng-repeat="(rkey, rvalue) in roster">
                   <span>{{rvalue}}</span>
-                  <span ng-class="{'glyphicon glyphicon-ok-circle': attendance[rvalue] > 0, 'glyphicon glyphicon-remove-circle': attendance[rvalue] <= 0}"></span>
+                  <span ng-class="{'glyphicon glyphicon-ok-circle': attendance[rvalue.trim()] > 0, 'glyphicon glyphicon-remove-circle': attendance[rvalue.trim()] <= 0}"></span>
                 </li>
               </ul>
             </div>
