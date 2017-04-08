@@ -67,7 +67,7 @@ $affiliation = $headers['affiliation'];
               <ul>
                 <li ng-repeat="(rkey, rvalue) in roster">
                   <span>{{rvalue}}</span>
-                  <span ng-class="{'glyphicon glyphicon-ok-circle': didAttend(rvalue), 'glyphicon glyphicon-remove-circle': didAttend(rvalue)}"></span>
+                  <span ng-class="{'glyphicon glyphicon-ok-circle': attendance[rvalue] > 0, 'glyphicon glyphicon-remove-circle': attendance[rvalue] <= 0}"></span>
                 </li>
               </ul>
             </div>

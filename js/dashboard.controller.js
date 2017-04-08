@@ -133,7 +133,7 @@ function DashboardController($scope, $http) {
           response.data.result.forEach(function(value2, key2) {
             var onyen2 = value2.onyen.trim();
             if(angular.equals(onyen, onyen2)) {
-              dashboard.attendance[onyen] = value2.count;
+              dashboard.attendance[onyen] = parseInt(value2.count);
               return;
             }
           });
@@ -141,9 +141,6 @@ function DashboardController($scope, $http) {
             dashboard.attendance[onyen] = 0;
           }
         });
-
-
-
       }
 
       function errorCallback(response) {
@@ -152,10 +149,6 @@ function DashboardController($scope, $http) {
     }
     r.readAsBinaryString(f);
 
-  }
-
-  dashboard.didAttend = function(onyen) {
-    return dashboard.attendance[onyen] > 0;
   }
 
   function createTabs() {
