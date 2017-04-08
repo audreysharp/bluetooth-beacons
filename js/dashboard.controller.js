@@ -128,15 +128,22 @@ function DashboardController($scope, $http) {
         alert("success");
 
         dashboard.attendance = {};
-        dashboard.roster.forEach(function(value, key) {
-          response.data.result.forEach(function(value2, key2){
-            if(angular.equals(value, value2.onyen)){
-              dashboard.attendance[value] = value2.count;
+        response.data.result.forEach(function(value2, key2) {
+          var onyen = value2.onyen.trim();
+          dashboard.roster.forEach(function(value, key) {
+            var onyen2 = value.trim();
+            if(angular.equals(onyen, onyen2)) {
+              dashboard.attendance[onyen] = value2.count;
               return;
             }
           });
-          dashboard.attendance[value] = 0;
+          if(!dashboard.attendance[onyen]){
+            dashboard.attendance[onyen] = 0;
+          }
         });
+
+
+
       }
 
       function errorCallback(response) {
