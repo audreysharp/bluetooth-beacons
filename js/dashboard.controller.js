@@ -128,10 +128,10 @@ function DashboardController($scope, $http) {
         alert("success");
 
         dashboard.attendance = {};
-        response.data.result.forEach(function(value2, key2) {
-          var onyen = value2.onyen.trim();
-          dashboard.roster.forEach(function(value, key) {
-            var onyen2 = value.trim();
+        dashboard.roster.forEach(function(value, key) {
+          var onyen = value.trim();
+          response.data.result.forEach(function(value2, key2) {
+            var onyen2 = value2.onyen.trim();
             if(angular.equals(onyen, onyen2)) {
               dashboard.attendance[onyen] = value2.count;
               return;
