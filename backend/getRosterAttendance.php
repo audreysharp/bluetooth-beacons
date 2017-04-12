@@ -14,8 +14,9 @@ $db = new DBFunctions();
 $department = $request['department'];
 $number = $request['number'];
 $section = $request['section'];
+$roster = $request['roster'];
 
-$result = $db->getRosterAttendance($department, $number, $section);
+$result = $db->getRosterAttendance($department, $number, $section, $roster);
 
 // Begin creating response
 $code = $result['code'];
