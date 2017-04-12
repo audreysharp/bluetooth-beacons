@@ -106,7 +106,7 @@ class DBFunctions {
 			$query = $db->query("SELECT onyen FROM roster WHERE courseID = '$course_id'") or die(mysqli_error($db));
 			$records = [];
 			while($record = $query->fetch_array(MYSQLI_NUM)){
-				$records[] = $record;
+				$records[] = $record[0];
 			}
 			$result['records'] = $records;
 			$result['code'] = 0;
