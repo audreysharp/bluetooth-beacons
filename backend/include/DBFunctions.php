@@ -93,7 +93,7 @@ class DBFunctions {
 	function uploadRoster($courseID, $roster, $db) {
 		$roster = explode(",", $roster);
 		foreach($roster as $onyen) {
-			$query = $db->query("INSERT INTO roster(courseID, onyen) VALUES('$courseID', '$onyen')") or die(mysqli_error($db));
+			$query = $db->query("INSERT IGNORE INTO roster(courseID, onyen) VALUES('$courseID', '$onyen')") or die(mysqli_error($db));
 		}
 	}
 
