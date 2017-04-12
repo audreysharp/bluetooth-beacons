@@ -121,7 +121,7 @@ function DashboardController($scope, $http) {
           str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
           return str.join("&");
         },
-        data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section}
+        data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section, roster : dashboard.roster}
       }).then(successCallback, errorCallback);
 
       function successCallback(response) {
