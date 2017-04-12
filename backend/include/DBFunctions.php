@@ -94,7 +94,7 @@ class DBFunctions {
 		$course_ids = $query_id->fetch_all(MYSQLI_ASSOC);
 		foreach($course_ids as $course_id_array) {
 			$course_id = $course_id_array['sno'];
-			if($this->isCourseOpen($course_id, $db)) {
+			if(!$this->isCourseOpen($course_id, $db)) {
 				return false;
 			}
 		}
