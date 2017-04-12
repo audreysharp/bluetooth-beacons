@@ -102,7 +102,28 @@ function DashboardController($scope, $http) {
       alert("fail");
     }
   }
+  dashboard.loadRoster = function(record) {
+    $http({
+      method: 'POST',
+      url: '/backend/getRoster.php',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      },
+      data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section}
+    }).then(successCallback, errorCallback);
 
+    function successCallback(response) {
+      dashboard.roster = response.data.result;
+    }
+
+    function errorCallback(response) {
+      alert("fail");
+    }
+  }
   dashboard.uploadRoster = function (record) {
     var f = document.getElementById('rosterFile').files[0],
     r = new FileReader();

@@ -60,7 +60,7 @@ $affiliation = $headers['affiliation'];
               <h5>{{value.attendance}}</h5>
               <h5>{{value.records}}</h5>
             </div>
-            <div ng-if="instructorMode">
+            <div ng-if="instructorMode" ng-init="loadRoster(value)">
               <label class="control-label">Select File</label>
               <input id="rosterFile" type="file" class="file">
               <button ng-click="uploadRoster(value)">Submit</button>
