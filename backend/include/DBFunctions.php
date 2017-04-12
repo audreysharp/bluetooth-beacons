@@ -61,7 +61,7 @@ class DBFunctions {
 			$row = $query_id->fetch_assoc();
 			$course_id = $row['sno'];
 			$dbBeaconID = $row['beaconID'];
-			if($dbBeaconID == $beaconID && !$this->isCourseOpen($course_id, $db)) {
+			if($dbBeaconID == $beaconID && !$this->isBeaconOpen($beaconID, $db)) {
 				$openTime = date("Y-m-d H:i:s", strtotime("now"));
 				$closedTime = date("Y-m-d H:i:s", strtotime("+10 minutes"));
 				$db->query("UPDATE courses SET openTime = '$openTime', closedTime = '$closedTime' WHERE sno = '$course_id'") or die(mysqli_error($db));
@@ -78,7 +78,7 @@ class DBFunctions {
 	}
 
 	function isCourseOpen($course_id, $db) {
-		$query = $db->query("SELECT openTime, closedTime FROM courses WHERE sno = '$course_id'");
+		$query = $db->query("SELECT openTime, closedTime FROM courses WHERE sno = '$course_id'") or die(mysqli_error($db));
 		if($query) {
 			$record = $query->fetch_array(MYSQLI_ASSOC);
 			$openTime = strtotime($record['openTime']);
@@ -87,6 +87,18 @@ class DBFunctions {
 			return ($currentTime >= $openTime && $currentTime <= $closedTime);
 		}
 		return false;
+	}
+
+	function isBeaconOpen($beaconID, $db) {
+		$query_id = $db->query("SELECT sno FROM courses WHERE beaconID = '$beaconID'") or die(mysqli_error($db));
+		$course_ids = $query_id->fetch_all(MYSQLI_ASSOC);
+		foreach($course_ids as $course_id_array) {
+			$course_id = $course_id_array['sno'];
+			if($this->isCourseOpen($course_id, $db)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// Get student attendance records
