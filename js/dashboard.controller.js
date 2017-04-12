@@ -119,7 +119,7 @@ function DashboardController($scope, $http) {
 
     function successCallback(response) {
       dashboard.roster = response.data.result;
-      setAttendanceStatus();
+      setAttendanceStatus(record);
     }
 
     function errorCallback(response) {
@@ -155,49 +155,48 @@ function DashboardController($scope, $http) {
       var data = e.target.result;
       dashboard.roster = data.split("\n");
 
-      // Get all attendance from students
-      $http({
-        method: 'POST',
-        url: '/backend/getRosterAttendance.php',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        transformRequest: function(obj) {
-          var str = [];
-          for(var p in obj)
-          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-          return str.join("&");
-        },
-        data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section, roster : dashboard.roster}
-      }).then(successCallback, errorCallback);
-
-      function successCallback(response) {
-        alert("success");
-
-        setAttendanceStatus();
-      }
-
-      function errorCallback(response) {
-        alert("fail");
-      }
+      setAttendanceStatus(record);
     }
     r.readAsBinaryString(f);
 
   }
 
-  function setAttendanceStatus() {
-    dashboard.attendance = {};
-    dashboard.roster.forEach(function(value, key) {
-      var onyen = value.trim();
-      response.data.result.forEach(function(value2, key2) {
-        var onyen2 = value2.onyen.trim();
-        if(angular.equals(onyen, onyen2)) {
-          dashboard.attendance[onyen] = parseInt(value2.count);
-          return;
+  function setAttendanceStatus(record) {
+    // Get all attendance from students
+    $http({
+      method: 'POST',
+      url: '/backend/getRosterAttendance.php',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      },
+      data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section, roster : dashboard.roster}
+    }).then(successCallback, errorCallback);
+
+    function successCallback(response) {
+      alert("success");
+      dashboard.attendance = {};
+      dashboard.roster.forEach(function(value, key) {
+        var onyen = value.trim();
+        response.data.result.forEach(function(value2, key2) {
+          var onyen2 = value2.onyen.trim();
+          if(angular.equals(onyen, onyen2)) {
+            dashboard.attendance[onyen] = parseInt(value2.count);
+            return;
+          }
+        });
+        if(!dashboard.attendance[onyen]){
+          dashboard.attendance[onyen] = 0;
         }
       });
-      if(!dashboard.attendance[onyen]){
-        dashboard.attendance[onyen] = 0;
-      }
-    });
+    }
+
+    function errorCallback(response) {
+      alert("fail");
+    }
   }
 
   function createTabs() {
