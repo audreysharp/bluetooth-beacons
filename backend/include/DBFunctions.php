@@ -104,7 +104,10 @@ class DBFunctions {
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
 			$query = $db->query("SELECT onyen FROM roster WHERE courseID = '$course_id'") or die(mysqli_error($db));
-			$records = $query->fetch_array(MYSQLI_ASSOC);
+			$records = [];
+			while($record = $query->fetch_array(MYSQLI_NUM)){
+				$records[] = $record;
+			}
 			$result['records'] = $records;
 			$result['code'] = 0;
 			return $result;
