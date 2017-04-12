@@ -17,31 +17,58 @@ class DBFunctions {
 
 	}
 
-	// Add a check in record
-	public function addCheckIn($onyen, $role, $course_dept, $course_num, $course_sec) {
+	function addCheckIn($onyen, $role, $course_id, $db) {
+		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
+		if($query) {
+			// Successful insert
+			$result['code'] = 0;
+			$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error($db));
+			$record = $query->fetch_array(MYSQLI_ASSOC);
+			$result['record'] = $record;
+		} else {
+			// Insert failed
+			$result['code'] = 1;
+		}
+		return $result;
+	}
+
+	// Add a student check in record
+	public function addStudentCheckIn($onyen, $role, $beaconID) {
 		$db = $this->__construct();
 
-		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error($db));
+		$query_id = $db->query("SELECT sno FROM courses WHERE beaconID = '$beaconID'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0){
-			$course_id = $query_id->fetch_assoc()['sno'];
-			if($role == "teacher") {
+			$course_ids = $query_id->fetch_all(MYSQLI_ASSOC);
+			foreach($course_ids as $course_id_array) {
+				$course_id = $course_id_array['sno'];
+				if($this->isCourseOpen($course_id, $db)) {
+					return $this->addCheckIn($onyen, $role, $course_id, $db);
+				}
+			}
+		} else {
+			// Course doesn't exist
+			$result['code'] = 2;
+		}
+		return $result;
+	}
+
+	// Add a check in record
+	public function addInstructorCheckIn($onyen, $role, $beaconID, $course_dept, $course_num, $course_sec) {
+		$db = $this->__construct();
+
+		$query_id = $db->query("SELECT sno, beaconID FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error($db));
+		if($query_id && $query_id->num_rows > 0){
+			$row = $query_id->fetch_assoc();
+			$course_id = $row['sno'];
+			$dbBeaconID = $row['beaconID'];
+			if($dbBeaconID == $beaconID && $this->isCourseOpen($course_id, $db)) {
 				$openTime = date("Y-m-d H:i:s", strtotime("now"));
 				$closedTime = date("Y-m-d H:i:s", strtotime("+10 minutes"));
 				$db->query("UPDATE courses SET openTime = '$openTime', closedTime = '$closedTime' WHERE sno = '$course_id'") or die(mysqli_error($db));
-			}
-
-			if($role == "teacher" || $this->isCourseOpen($course_id, $db)) {
-				$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
-				if($query) {
-					// Successful insert
-					$result['code'] = 0;
-					$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error($db));
-					$record = $query->fetch_array(MYSQLI_ASSOC);
-					$result['record'] = $record;
-				}
+				return $this->addCheckIn($onyen, $role, $course_id, $db);
 			} else {
-				// Insert failed
-				$result['code'] = 1;
+				// Beacon already being used for course
+				$result['code'] = 3;
 			}
 		} else {
 			// Course doesn't exist
@@ -70,7 +97,7 @@ class DBFunctions {
 
 	// Get instructor attendance records
 	public function getInstructorAttendance($onyen) {
-		$role = 'teacher';
+		$role = 'instructor';
 		return $this->getAttendance($onyen, $role);
 	}
 
@@ -126,10 +153,10 @@ class DBFunctions {
 	}
 
 	// Add course
-	public function addCourse($department, $number, $section, $creator) {
+	public function addCourse($department, $number, $section, $creator, $beaconID) {
 		$db = $this->__construct();
 
-		$query = $db->query("INSERT INTO courses(department, number, section, creator) VALUES('$department', '$number', '$section', '$creator')") or die(mysqli_error($db));
+		$query = $db->query("INSERT INTO courses(department, number, section, creator, beaconID) VALUES('$department', '$number', '$section', '$creator', '$beaconID')") or die(mysqli_error($db));
 		if($query) {
 			// Successful insert
 			$result['code'] = 0;
@@ -155,5 +182,4 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 }
