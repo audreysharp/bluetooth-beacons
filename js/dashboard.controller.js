@@ -102,6 +102,7 @@ function DashboardController($scope, $http) {
       alert("fail");
     }
   }
+
   dashboard.loadRoster = function(record) {
     $http({
       method: 'POST',
@@ -118,12 +119,35 @@ function DashboardController($scope, $http) {
 
     function successCallback(response) {
       dashboard.roster = response.data.result;
+      setAttendanceStatus();
     }
 
     function errorCallback(response) {
       alert("fail");
     }
   }
+
+  dashboard.exportRoster = function (fileName) {
+    if(dashboard.attendance != null && Object.keys(dashboard.attendance).length > 0) {
+      var csvContent = "data:text/csv;charset=utf-8,";
+
+      dashboard.attendance.forEach(function(value, key) {
+        csvContent += key + "," + value;
+        csvContent += "\n";
+      });
+
+
+      var encodedUri = encodeURI(csvContent);
+      var link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+
+      link.click();
+    }
+
+  }
+
   dashboard.uploadRoster = function (record) {
     var f = document.getElementById('rosterFile').files[0],
     r = new FileReader();
@@ -148,20 +172,7 @@ function DashboardController($scope, $http) {
       function successCallback(response) {
         alert("success");
 
-        dashboard.attendance = {};
-        dashboard.roster.forEach(function(value, key) {
-          var onyen = value.trim();
-          response.data.result.forEach(function(value2, key2) {
-            var onyen2 = value2.onyen.trim();
-            if(angular.equals(onyen, onyen2)) {
-              dashboard.attendance[onyen] = parseInt(value2.count);
-              return;
-            }
-          });
-          if(!dashboard.attendance[onyen]){
-            dashboard.attendance[onyen] = 0;
-          }
-        });
+        setAttendanceStatus();
       }
 
       function errorCallback(response) {
@@ -170,6 +181,23 @@ function DashboardController($scope, $http) {
     }
     r.readAsBinaryString(f);
 
+  }
+
+  function setAttendanceStatus() {
+    dashboard.attendance = {};
+    dashboard.roster.forEach(function(value, key) {
+      var onyen = value.trim();
+      response.data.result.forEach(function(value2, key2) {
+        var onyen2 = value2.onyen.trim();
+        if(angular.equals(onyen, onyen2)) {
+          dashboard.attendance[onyen] = parseInt(value2.count);
+          return;
+        }
+      });
+      if(!dashboard.attendance[onyen]){
+        dashboard.attendance[onyen] = 0;
+      }
+    });
   }
 
   function createTabs() {

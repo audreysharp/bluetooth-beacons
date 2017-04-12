@@ -64,6 +64,7 @@ $affiliation = $headers['affiliation'];
               <label class="control-label">Select File</label>
               <input id="rosterFile" type="file" class="file">
               <button ng-click="uploadRoster(value)">Submit</button>
+              <button ng-click="exportRoster(key)">Export to CSV</button>
               <table class="table table-hover">
                 <thead>
                   <tr>
