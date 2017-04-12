@@ -131,7 +131,7 @@ function DashboardController($scope, $http) {
     if(dashboard.attendance != null && Object.keys(dashboard.attendance).length > 0) {
       var csvContent = "data:text/csv;charset=utf-8,";
 
-      dashboard.attendance.forEach(function(value, key) {
+      angular.forEach(dashboard.attendance, function(value, key) {
         csvContent += key + "," + value;
         csvContent += "\n";
       });
