@@ -61,7 +61,7 @@ class DBFunctions {
 			$row = $query_id->fetch_assoc();
 			$course_id = $row['sno'];
 			$dbBeaconID = $row['beaconID'];
-			if($dbBeaconID == $beaconID && $this->isCourseOpen($course_id, $db)) {
+			if($dbBeaconID == $beaconID && !$this->isCourseOpen($course_id, $db)) {
 				$openTime = date("Y-m-d H:i:s", strtotime("now"));
 				$closedTime = date("Y-m-d H:i:s", strtotime("+10 minutes"));
 				$db->query("UPDATE courses SET openTime = '$openTime', closedTime = '$closedTime' WHERE sno = '$course_id'") or die(mysqli_error($db));
