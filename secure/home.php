@@ -64,12 +64,20 @@ $affiliation = $headers['affiliation'];
               <label class="control-label">Select File</label>
               <input id="rosterFile" type="file" class="file">
               <button ng-click="uploadRoster(value)">Submit</button>
-              <ul>
-                <li ng-repeat="(rkey, rvalue) in roster">
-                  <span>{{rvalue}}</span>
-                  <span ng-class="{'glyphicon glyphicon-ok-circle': attendance[rvalue.trim()] > 0, 'glyphicon glyphicon-remove-circle': attendance[rvalue.trim()] <= 0}"></span>
-                </li>
-              </ul>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Onyen</th>
+                    <th>Attended</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="(rkey, rvalue) in roster">
+                    <td>{{rvalue}}</td>
+                    <td><span ng-class="{'glyphicon glyphicon-ok-circle': attendance[rvalue.trim()] > 0, 'glyphicon glyphicon-remove-circle red': attendance[rvalue.trim()] <= 0}"></span></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div ng-if="administratorMode">
             </div>
@@ -88,6 +96,10 @@ $affiliation = $headers['affiliation'];
               <div class="form-group">
                 <label for="courseSection">Course Section:</label>
                 <input type="text" class="form-control" id="courseDept" ng-model="fields.section" placeholder="ex: 001"></input>
+              </div>
+              <div class="form-group">
+                <label for="beaconID">Beacon UUID:</label>
+                <input type="text" class="form-control" id="beaconID" ng-model="fields.beaconID" placeholder="required"></input>
               </div>
               <button type="submit" class="btn btn-default" ng-click="addCourse()">Submit</button>
             </form>

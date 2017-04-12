@@ -24,13 +24,21 @@ class DBFunctions {
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0){
 			$course_id = $query_id->fetch_assoc()['sno'];
-			$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
-			if($query) {
-				// Successful insert
-				$result['code'] = 0;
-				$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error($db));
-				$record = $query->fetch_array(MYSQLI_ASSOC);
-				$result['record'] = $record;
+			if($role == "teacher") {
+				$openTime = date("Y-m-d H:i:s", strtotime("now"));
+				$closedTime = date("Y-m-d H:i:s", strtotime("+10 minutes"));
+				$db->query("UPDATE courses SET openTime = '$openTime', closedTime = '$closedTime' WHERE sno = '$course_id'") or die(mysqli_error($db));
+			}
+
+			if($role == "teacher" || $this->isCourseOpen($course_id, $db)) {
+				$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
+				if($query) {
+					// Successful insert
+					$result['code'] = 0;
+					$query = $db->query("SELECT * FROM attendance WHERE onyen = '$onyen'") or die(mysqli_error($db));
+					$record = $query->fetch_array(MYSQLI_ASSOC);
+					$result['record'] = $record;
+				}
 			} else {
 				// Insert failed
 				$result['code'] = 1;
@@ -40,6 +48,18 @@ class DBFunctions {
 			$result['code'] = 2;
 		}
 		return $result;
+	}
+
+	function isCourseOpen($course_id, $db) {
+		$query = $db->query("SELECT openTime, closedTime FROM courses WHERE sno = '$course_id'");
+		if($query) {
+			$record = $query->fetch_array(MYSQLI_ASSOC);
+			$openTime = strtotime($record['openTime']);
+			$closedTime = strtotime($record['closedTime']);
+			$currentTime = strtotime("now");
+			return ($currentTime >= $openTime && $currentTime <= $closedTime);
+		}
+		return false;
 	}
 
 	// Get student attendance records
@@ -54,17 +74,26 @@ class DBFunctions {
 		return $this->getAttendance($onyen, $role);
 	}
 
-	public function getRosterAttendance($department, $number, $section) {
+	public function getRosterAttendance($department, $number, $section, $roster) {
 		$db = $this->__construct();
 
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
+			$this->uploadRoster($course_id, $roster, $db);
 			$query = $db->query("SELECT onyen, COUNT(*) AS count FROM attendance WHERE courseID = '$course_id' AND role = 'student' GROUP BY onyen") or die(mysqli_error($db));
 			$records = $query->fetch_all(MYSQLI_ASSOC);
 			$result['records'] = $records;
 			$result['code'] = 0;
 			return $result;
+		}
+	}
+
+	// Upload roster
+	function uploadRoster($courseID, $roster, $db) {
+		$roster = explode(",", $roster);
+		foreach($roster as $onyen) {
+			$query = $db->query("INSERT INTO roster(courseID, onyen) VALUES('$courseID', '$onyen')") or die(mysqli_error($db));
 		}
 	}
 
@@ -83,7 +112,7 @@ class DBFunctions {
 	public function addCourse($department, $number, $section, $creator) {
 		$db = $this->__construct();
 
-		$query = $db->query("INSERT INTO courses(department, number, section, creator, timestamp) VALUES('$department', '$number', '$section', '$creator', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
+		$query = $db->query("INSERT INTO courses(department, number, section, creator) VALUES('$department', '$number', '$section', '$creator')") or die(mysqli_error($db));
 		if($query) {
 			// Successful insert
 			$result['code'] = 0;
@@ -109,4 +138,5 @@ class DBFunctions {
 		}
 		return $result;
 	}
+
 }

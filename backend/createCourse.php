@@ -15,8 +15,9 @@ $department = $request['department'];
 $number = $request['number'];
 $section = $request['section'];
 $creator = $request['creator'];
+$beaconID = $request['beaconID'];
 
-$result = $db->addCourse($department, $number, $section, $creator);
+$result = $db->addCourse($department, $number, $section, $creator, $beaconID);
 
 // Begin creating response
 $code = $result['code'];
