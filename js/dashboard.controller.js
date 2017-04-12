@@ -94,7 +94,7 @@ function DashboardController($scope, $http) {
     }).then(successCallback, errorCallback);
 
     function successCallback(response) {
-      alert("success");
+
       dashboard.getCourses();
     }
 
@@ -177,7 +177,7 @@ function DashboardController($scope, $http) {
     }).then(successCallback, errorCallback);
 
     function successCallback(response) {
-      alert("success");
+
       dashboard.attendance = {};
       dashboard.roster.forEach(function(value, key) {
         var onyen = value.trim();
