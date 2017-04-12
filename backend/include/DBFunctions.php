@@ -98,6 +98,8 @@ class DBFunctions {
 	}
 
 	public function getRoster($department, $number, $section) {
+		$db = $this->__construct();
+
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
