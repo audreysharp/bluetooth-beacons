@@ -1,7 +1,5 @@
 <?php
-/**
-Create course table
-**/
+/**Create course table**/
 
 // Include Database handler
 require_once 'include/DBConnect.php';
@@ -14,3 +12,5 @@ $q = "CREATE TABLE roster (
     UNIQUE KEY (onyen, courseID)
 )";
 $db->connect()->query($q);
+
+?>

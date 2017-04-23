@@ -18,7 +18,7 @@ class DBFunctions {
 	}
 
 	function addCheckIn($onyen, $role, $course_id, $db) {
-		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
+		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', DATE_FORMAT(NOW(),'%b %d %Y %h:%i %p'))") or die(mysqli_error($db));
 		if($query) {
 			// Successful insert
 			$result['code'] = 0;

@@ -15,7 +15,7 @@ class DBConnect {
 	public function connect() {
 		require_once 'include/config.php';
 		// connecting to mysql
-		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+		$con = mysqli_connect("localhost", "root", "", "sampledb");
 
 		// return database handler
 		return $con;
@@ -27,3 +27,4 @@ class DBConnect {
 	}
 
 }
+?>

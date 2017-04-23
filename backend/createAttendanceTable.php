@@ -1,7 +1,5 @@
 <?php
-/**
-Create attendance table
-**/
+/**Create attendance table**/
 
 // Include Database handler
 require_once 'include/DBConnect.php';
@@ -11,7 +9,8 @@ $q = "CREATE TABLE attendance (
     onyen varchar(50) NOT NULL,
     role varchar(50) NOT NULL,
     courseID int(11) NOT NULL,
-    timestamp datetime DEFAULT NULL,
+    timestamp varchar(22) DEFAULT NULL,
     PRIMARY KEY (sno)
 )";
 $db->connect()->query($q);
+?>

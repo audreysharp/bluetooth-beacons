@@ -1,7 +1,5 @@
 <?php
-/**
-Drop attendance table
-**/
+/**Drop attendance table**/
 
 // Include Database handler
 require_once 'include/DBConnect.php';

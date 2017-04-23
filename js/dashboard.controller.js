@@ -8,6 +8,8 @@ function DashboardController($scope, $http) {
   $scope.url = '/secure/home.php';
   var dashboard = $scope;
 
+  var baseURL = 'http://localhost/bluetooth-beacons/';
+
   dashboard.setAccess = function () {
     var STUDENT_AFFILIATION = "student@unc.edu";
     var INSTRUCTOR_AFFILIATION = "faculty@unc.edu";
@@ -55,7 +57,7 @@ function DashboardController($scope, $http) {
     }
     $http({
       method: 'POST',
-      url: mUrl,
+      url: baseURL + mUrl,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function(obj) {
         var str = [];
@@ -82,7 +84,7 @@ function DashboardController($scope, $http) {
     dashboard.fields.creator = dashboard.onyen;
     $http({
       method: 'POST',
-      url: '/backend/createCourse.php',
+      url: baseURL + '/backend/createCourse.php',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function(obj) {
         var str = [];
@@ -106,7 +108,7 @@ function DashboardController($scope, $http) {
   dashboard.loadRoster = function(record) {
     $http({
       method: 'POST',
-      url: '/backend/getRoster.php',
+      url: baseURL + '/backend/getRoster.php',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function(obj) {
         var str = [];
@@ -165,7 +167,7 @@ function DashboardController($scope, $http) {
     // Get all attendance from students
     $http({
       method: 'POST',
-      url: '/backend/getRosterAttendance.php',
+      url: baseURL + '/backend/getRosterAttendance.php',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function(obj) {
         var str = [];
@@ -206,8 +208,9 @@ function DashboardController($scope, $http) {
         var courseName = value.department + value.number + "-" + value.section;
         if(dashboard.tabs[courseName]){
           dashboard.tabs[courseName].attendance++;
+          dashboard.tabs[courseName].records.push(value);
         } else {
-          dashboard.tabs[courseName] = {attendance: 1, records: dashboard.records};
+           dashboard.tabs[courseName] = {attendance: 1, records: [value]};
         }
       });
     }
