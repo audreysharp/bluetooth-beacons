@@ -53,7 +53,7 @@ function DashboardController($scope, $http) {
     } else if(dashboard.instructorMode) {
       mUrl = '/backend/getInstructorAttendance.php';
     } else if(dashboard.administratorMode) {
-      mUrl = '/backend/getCoursesByAdmin.php';
+      mUrl = '/backend/getAdministratorAttendance.php';
     }
     $http({
       method: 'POST',
@@ -96,7 +96,6 @@ function DashboardController($scope, $http) {
     }).then(successCallback, errorCallback);
 
     function successCallback(response) {
-
       dashboard.getCourses();
     }
 
@@ -105,7 +104,7 @@ function DashboardController($scope, $http) {
     }
   }
 
-  dashboard.loadRoster = function(record) {
+  dashboard.loadRoster = function(record, key) {
     $http({
       method: 'POST',
       url: baseURL + '/backend/getRoster.php',
@@ -120,8 +119,11 @@ function DashboardController($scope, $http) {
     }).then(successCallback, errorCallback);
 
     function successCallback(response) {
-      dashboard.roster = response.data.result;
-      setAttendanceStatus(record);
+      if(dashboard.roster == null) {
+        dashboard.roster = {};
+      }
+      dashboard.roster[key] = response.data.result;
+      setAttendanceStatus(record, key);
     }
 
     function errorCallback(response) {
@@ -150,20 +152,23 @@ function DashboardController($scope, $http) {
 
   }
 
-  dashboard.uploadRoster = function (record) {
+  dashboard.uploadRoster = function (record, key) {
     var f = document.getElementById('rosterFile').files[0],
     r = new FileReader();
     r.onloadend = function(e){
       var data = e.target.result;
-      dashboard.roster = data.split("\n");
+      if(data.charAt(data.length-1) == "\n") {
+        data = data.substring(0,data.length-1);
+      }
+      dashboard.roster[key] = data.split("\n");
 
-      setAttendanceStatus(record);
+      setAttendanceStatus(record, key);
     }
     r.readAsBinaryString(f);
 
   }
 
-  function setAttendanceStatus(record) {
+  function setAttendanceStatus(record, key) {
     // Get all attendance from students
     $http({
       method: 'POST',
@@ -175,30 +180,51 @@ function DashboardController($scope, $http) {
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
       },
-      data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section, roster : dashboard.roster}
+      data: {department : record.records[0].department, number : record.records[0].number, section : record.records[0].section, roster : dashboard.roster[key]}
     }).then(successCallback, errorCallback);
 
     function successCallback(response) {
 
       dashboard.attendance = {};
-      dashboard.roster.forEach(function(value, key) {
+      dashboard.roster[key].forEach(function(value, key) {
         var onyen = value.trim();
+        if(!dashboard.attendance[onyen]){
+          dashboard.attendance[onyen] = [];
+        }
         response.data.result.forEach(function(value2, key2) {
           var onyen2 = value2.onyen.trim();
           if(angular.equals(onyen, onyen2)) {
-            dashboard.attendance[onyen] = parseInt(value2.count);
+            dashboard.attendance[onyen].push(value2.timestamp);
             return;
           }
         });
-        if(!dashboard.attendance[onyen]){
-          dashboard.attendance[onyen] = 0;
-        }
       });
     }
 
     function errorCallback(response) {
       alert("fail");
     }
+  }
+
+  dashboard.checkTimestampColumn = function(onyen, timestampHeader) {
+    if(dashboard.attendance != null) {
+      var index = 0;
+      var attendanceTimestamps = dashboard.attendance[onyen];
+      if(attendanceTimestamps != null) {
+        for(var index = 0; index < attendanceTimestamps.length; index++) {
+          var aTime = attendanceTimestamps[index];
+          var checkInDate = new Date(aTime);
+          var checkInWindowStart = new Date(timestampHeader);
+          // for 10 minute window
+          var checkInWindowEnd = new Date(checkInWindowStart.getTime() + 10*60000);
+          if(checkInWindowStart <= checkInDate && checkInDate <= checkInWindowEnd) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
   }
 
   function createTabs() {
@@ -210,7 +236,7 @@ function DashboardController($scope, $http) {
           dashboard.tabs[courseName].attendance++;
           dashboard.tabs[courseName].records.push(value);
         } else {
-           dashboard.tabs[courseName] = {attendance: 1, records: [value]};
+          dashboard.tabs[courseName] = {attendance: 1, records: [value]};
         }
       });
     }
