@@ -8,7 +8,8 @@ function DashboardController($scope, $http) {
   $scope.url = '/secure/home.php';
   var dashboard = $scope;
 
-  var baseURL = 'http://localhost/bluetooth-beacons/';
+  // var baseURL = 'http://localhost/bluetooth-beacons/';
+  var baseURL = '';
 
   dashboard.setAccess = function () {
     var STUDENT_AFFILIATION = "student@unc.edu";
