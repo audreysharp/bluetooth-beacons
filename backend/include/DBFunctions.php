@@ -18,7 +18,7 @@ class DBFunctions {
 	}
 
 	function addCheckIn($onyen, $role, $course_id, $db) {
-		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
+		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', DATE_FORMAT(NOW(),'%b %d %Y %h:%i %p'))") or die(mysqli_error($db));
 		if($query) {
 			// Successful insert
 			$result['code'] = 0;
@@ -113,6 +113,19 @@ class DBFunctions {
 		return $this->getAttendance($onyen, $role);
 	}
 
+	// Get administrator attendance records
+	public function getAdministratorAttendance($onyen) {
+		$db = $this->__construct();
+		$role = 'instructor';
+		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM courses LEFT JOIN attendance ON attendance.courseID = courses.sno WHERE courses.creator = '$onyen' AND (role = 'instructor' OR role IS NULL)") or die(mysqli_error($db));
+		if($query) {
+			$result['code'] = 0;
+			$records = $query->fetch_all(MYSQLI_ASSOC);
+			$result['records'] = $records;
+		}
+		return $result;
+	}
+
 	public function getRosterAttendance($department, $number, $section, $roster) {
 		$db = $this->__construct();
 
@@ -120,7 +133,7 @@ class DBFunctions {
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
 			$this->uploadRoster($course_id, $roster, $db);
-			$query = $db->query("SELECT onyen, COUNT(*) AS count FROM attendance WHERE courseID = '$course_id' AND role = 'student' GROUP BY onyen") or die(mysqli_error($db));
+			$query = $db->query("SELECT onyen, timestamp FROM attendance WHERE courseID = '$course_id' AND role = 'student'") or die(mysqli_error($db));
 			$records = $query->fetch_all(MYSQLI_ASSOC);
 			$result['records'] = $records;
 			$result['code'] = 0;
@@ -130,9 +143,13 @@ class DBFunctions {
 
 	// Upload roster
 	function uploadRoster($courseID, $roster, $db) {
+
 		$roster = explode(",", $roster);
 		foreach($roster as $onyen) {
-			$query = $db->query("INSERT IGNORE INTO roster(courseID, onyen) VALUES('$courseID', '$onyen')") or die(mysqli_error($db));
+			$onyen = trim($onyen);
+			if(!empty($onyen)) {
+				$query = $db->query("INSERT IGNORE INTO roster(courseID, onyen) VALUES('$courseID', '$onyen')") or die(mysqli_error($db));
+			}
 		}
 	}
 
@@ -178,19 +195,6 @@ class DBFunctions {
 		} else {
 			// Insert failed
 			$result['code'] = 1;
-		}
-		return $result;
-	}
-
-	// Get course information
-	public function getCoursesByAdmin($creator) {
-		$db = $this->__construct();
-
-		$query = $db->query("SELECT * FROM courses WHERE creator = '$creator'") or die(mysqli_error($db));
-		if($query) {
-			$result['code'] = 0;
-			$records = $query->fetch_all(MYSQLI_ASSOC);
-			$result['records'] = $records;
 		}
 		return $result;
 	}

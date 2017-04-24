@@ -1,7 +1,5 @@
 <?php
-/**
-Create course table
-**/
+/**Create course table**/
 
 // Include Database handler
 require_once 'include/DBConnect.php';
@@ -19,3 +17,4 @@ $q = "CREATE TABLE courses (
     UNIQUE KEY (department, number, section)
 )";
 $db->connect()->query($q);
+?>
