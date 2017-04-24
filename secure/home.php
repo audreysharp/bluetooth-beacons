@@ -69,8 +69,6 @@ $affiliation = $headers['affiliation'];
           <div ng-repeat="(key, value) in tabs" id="{{key}}" name="{{key}}" class="tab-pane">
             <div ng-if="studentMode">
               <h2>{{key}} Attendance:</h2>
-              <h5>{{value.attendance}}</h5>
-              <h5>{{value.records}}</h5>
               <table id="studentAttendance" class="table table-hover table-striped table-bordered tablesorter">
                 <thead>
                   <tr>
