@@ -79,7 +79,7 @@ $affiliation = $headers['affiliation'];
                 </thead>
                 <tbody>
                   <tr ng-repeat="x in value.records">
-                    <td>{{x.timestamp}}</td>
+                    <td>{{convertDate(x.timestamp)}}</td>
                     <td><span ng-class="{'glyphicon glyphicon-ok-circle green': value.attendance > 0, 'glyphicon glyphicon-remove-circle red': value.attendance <= 0}"></span></td>
                   </tr>
                 </tbody>
@@ -170,4 +170,10 @@ $affiliation = $headers['affiliation'];
   </div>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    function convertDate(dateString) {
+      var tempDate = new Date(dateString);
+      console.log(tempDate);
+    }
+  </script>
 </body>
