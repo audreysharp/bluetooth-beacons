@@ -79,7 +79,7 @@ $affiliation = $headers['affiliation'];
                 </thead>
                 <tbody>
                   <tr ng-repeat="x in value.records">
-                    <td>{{x.timestamp}}</td>
+                    <td>{{x.timestamp | timezone: '-0500'}}</td>
                     <td><span ng-class="{'glyphicon glyphicon-ok-circle green': value.attendance > 0, 'glyphicon glyphicon-remove-circle red': value.attendance <= 0}"></span></td>
                   </tr>
                 </tbody>
@@ -88,12 +88,11 @@ $affiliation = $headers['affiliation'];
             </div>
 
             <div ng-if="instructorMode" ng-init="loadRoster(value, key)">
-              <label class="control-label">Select File</label>
+              <label class="control-label">Upload Roster</label>
               <input id="rosterFile" type="file" class="file">
-              <br>
-              <button class="btn btn-default" ng-click="uploadRoster(value, key)">Submit</button>&nbsp;
-              <button class="btn btn-default" ng-click="exportRoster(key)">Export to CSV</button>
-              <br>
+              <button class="btn btn-default" ng-click="uploadRoster(value, key)">Upload</button>&nbsp;
+              <button class="btn btn-default" ng-click="exportRoster(key)">Export Attendance to CSV</button>
+              <br><br><br>
               <ul id="courseTabs" class="nav nav-tabs">
                 <li class="active"><a href="#today{{key}}" data-toggle="tab">Today's Attendance</a></li>
                 <li><a href="#overall{{key}}" data-toggle="tab">Overall Attendance</a></li>
