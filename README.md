@@ -1,6 +1,6 @@
 # Bluetooth Beacons for Attendance
 
-[Live Demo](shibboleth-yechoorv.cloudapps.unc.edu)  
+[Live Demo](https://shibboleth-yechoorv.cloudapps.unc.edu)  
 [Project Website](http://bluetoothbeacon.web.unc.edu/)  
 [Android Companion Application](https://github.com/audreysharp/android-bluetooth-beacons)
 
