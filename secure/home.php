@@ -59,11 +59,11 @@ $affiliation = $headers['affiliation'];
           <div class="tab-pane active" id="home" name="home">
             <h2>User Information</h2>
             <ul>
-              <li>ONYEN: {{onyen}}</li>
-              <li>PID: {{pid}}</li>
-              <li>Name: {{firstName}} {{lastName}}</li>
-              <li>Email: {{email}}</li>
-              <li>Affiliations: {{affiliation}}</li>
+              <li><b>ONYEN</b>: {{onyen}}</li>
+              <li><b>PID</b>: {{pid}}</li>
+              <li><b>Name</b>: {{firstName}} {{lastName}}</li>
+              <li><b>Email</b>: {{email}}</li>
+              <li><b>Affiliations</b>: {{affiliation}}</li>
             </ul>
           </div>
           <div ng-repeat="(key, value) in tabs" id="{{key}}" name="{{key}}" class="tab-pane">
