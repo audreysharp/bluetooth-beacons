@@ -79,7 +79,7 @@ $affiliation = $headers['affiliation'];
                 </thead>
                 <tbody>
                   <tr ng-repeat="x in value.records">
-                    <td>{{x.timestamp | timezone: '-0500'}}</td>
+                    <td>{{x.timestamp}}</td>
                     <td><span ng-class="{'glyphicon glyphicon-ok-circle green': value.attendance > 0, 'glyphicon glyphicon-remove-circle red': value.attendance <= 0}"></span></td>
                   </tr>
                 </tbody>
