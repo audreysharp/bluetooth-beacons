@@ -90,9 +90,9 @@ $affiliation = $headers['affiliation'];
             <div ng-if="instructorMode" ng-init="loadRoster(value, key)">
               <label class="control-label">Upload Roster</label>
               <input id="rosterFile" type="file" class="file">
-              <button class="btn btn-default" ng-click="uploadRoster(value, key)">Upload</button>&nbsp;
-              <button class="btn btn-default" ng-click="exportRoster(key)">Export Attendance to CSV</button>
-              <br><br><br>
+              <button class="btn btn-default" ng-click="uploadRoster(value, key)" style="padding-top:5px">Upload</button>&nbsp;
+              <button class="btn btn-default" ng-click="exportRoster(key)" style="padding-top:5px">Export Attendance to CSV</button>
+              <br><br>
               <ul id="courseTabs" class="nav nav-tabs">
                 <li class="active"><a href="#today{{key}}" data-toggle="tab">Today's Attendance</a></li>
                 <li><a href="#overall{{key}}" data-toggle="tab">Overall Attendance</a></li>
