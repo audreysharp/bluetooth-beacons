@@ -12,7 +12,7 @@ For this to work, we will be implementing a two-factor approach: UNC-CH Single S
 
 #### Students
 
-* No additional sign-up - log in with you ONYEN
+* No additional sign-up - log in with your ONYEN
 * Use your bluetooth-enabled smartphone to easily check in to your classes
 * Sign into the web dashboard to view your class attendance
 

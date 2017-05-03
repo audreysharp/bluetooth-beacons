@@ -6,12 +6,6 @@ $firstName = $headers['givenName'];
 $lastName = $headers['sn'];
 $email = $headers['mail'];
 $affiliation = $headers['affiliation'];
-// $onyen = 'yechoorv';
-// $pid = '720396961';
-// $firstName = 'Vamsi';
-// $lastName = 'Yechoor';
-// $email = 'yechoorv@live.unc.edu';
-// $affiliation = 'student@unc.edu;member@unc.edu;alum@unc.edu';
 ?>
 
 <head>
