@@ -55,9 +55,9 @@ $affiliation = $headers['affiliation'];
           <li ng-repeat="(key, value) in tabs"><a ng-href="#{{key}}" data-toggle="tab">{{key}}</a></li>
           <li ng-if="administratorMode"><a ng-href="#add" data-toggle="tab">+</a></li>
         </ul>
-        <div class="tab-content">
+        <div class="container tab-content">
           <div class="tab-pane active" id="home" name="home">
-            <h2>Info:</h2>
+            <h2>User Information</h2>
             <ul>
               <li>{{onyen}}</li>
               <li>{{pid}}</li>
@@ -68,7 +68,8 @@ $affiliation = $headers['affiliation'];
           </div>
           <div ng-repeat="(key, value) in tabs" id="{{key}}" name="{{key}}" class="tab-pane">
             <div ng-if="studentMode">
-              <h2>{{key}} Attendance:</h2>
+              <h2>{{key}} Attendance</h2>
+              <div class="container">
               <table id="studentAttendance" class="table table-hover table-striped table-bordered tablesorter">
                 <thead>
                   <tr>
@@ -83,6 +84,7 @@ $affiliation = $headers['affiliation'];
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
 
             <div ng-if="instructorMode" ng-init="loadRoster(value, key)">
@@ -94,7 +96,7 @@ $affiliation = $headers['affiliation'];
                 <li class="active"><a href="#today{{key}}" data-toggle="tab">Today's Attendance</a></li>
                 <li><a href="#overall{{key}}" data-toggle="tab">Overall Attendance</a></li>
               </ul>
-              <div class="tab-content">
+              <div class="container tab-content">
                 <div class="tab-pane active" id="today{{key}}" name="today{{key}}">
                   <table class="table table-hover table-striped table-bordered">
                     <thead>
