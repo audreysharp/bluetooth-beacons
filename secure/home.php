@@ -59,11 +59,11 @@ $affiliation = $headers['affiliation'];
           <div class="tab-pane active" id="home" name="home">
             <h2>User Information</h2>
             <ul>
-              <li>{{onyen}}</li>
-              <li>{{pid}}</li>
-              <li>{{firstName}} {{lastName}}</li>
-              <li>{{email}}</li>
-              <li>{{affiliation}}</li>
+              <li>ONYEN: {{onyen}}</li>
+              <li>PID: {{pid}}</li>
+              <li>Name: {{firstName}} {{lastName}}</li>
+              <li>Email: {{email}}</li>
+              <li>Affiliations: {{affiliation}}</li>
             </ul>
           </div>
           <div ng-repeat="(key, value) in tabs" id="{{key}}" name="{{key}}" class="tab-pane">
@@ -90,8 +90,10 @@ $affiliation = $headers['affiliation'];
             <div ng-if="instructorMode" ng-init="loadRoster(value, key)">
               <label class="control-label">Select File</label>
               <input id="rosterFile" type="file" class="file">
-              <button ng-click="uploadRoster(value, key)">Submit</button>
-              <button ng-click="exportRoster(key)">Export to CSV</button>
+              <br>
+              <button class="btn btn-default" ng-click="uploadRoster(value, key)">Submit</button>&nbsp;
+              <button class="btn btn-default" ng-click="exportRoster(key)">Export to CSV</button>
+              <br>
               <ul id="courseTabs" class="nav nav-tabs">
                 <li class="active"><a href="#today{{key}}" data-toggle="tab">Today's Attendance</a></li>
                 <li><a href="#overall{{key}}" data-toggle="tab">Overall Attendance</a></li>
@@ -145,20 +147,20 @@ $affiliation = $headers['affiliation'];
           <div id="add" name="add" class="tab-pane">
             <form name="courseForm">
               <div class="form-group">
-                <label for="courseDept">4 Letter Department Abbreviation:</label>
+                <label for="courseDept">4 Letter Department Abbreviation</label>
                 <input type="text" class="form-control" id="courseDept" ng-model="fields.department" placeholder="ex: COMP"></input>
               </div>
               <div class="form-group">
-                <label for="courseNum">Course Number:</label>
+                <label for="courseNum">Course Number</label>
                 <input type="text" class="form-control" id="courseDept" ng-model="fields.number" placeholder="ex: 523"></input>
               </div>
               <div class="form-group">
-                <label for="courseSection">Course Section:</label>
+                <label for="courseSection">Course Section</label>
                 <input type="text" class="form-control" id="courseDept" ng-model="fields.section" placeholder="ex: 001"></input>
               </div>
               <div class="form-group">
-                <label for="beaconID">Beacon UUID:</label>
-                <input type="text" class="form-control" id="beaconID" ng-model="fields.beaconID" placeholder="required"></input>
+                <label for="beaconID">Beacon UUID</label>
+                <input type="text" class="form-control" id="beaconID" ng-model="fields.beaconID" placeholder="Required"></input>
               </div>
               <button type="submit" class="btn btn-default" ng-click="addCourse()">Submit</button>
             </form>
