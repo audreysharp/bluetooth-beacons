@@ -105,6 +105,30 @@ function DashboardController($scope, $http) {
     }
   }
 
+  dashboard.manualCheckIn = function(record) {
+
+    $http({
+      method: 'POST',
+      url: baseURL + '/backend/manualCheckIn.php',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      },
+      data: {onyen: this.manualCheckInForm.onyen, role: 'student', department : record.records[0].department, number : record.records[0].number, section : record.records[0].section}
+    }).then(successCallback, errorCallback);
+
+    function successCallback(response) {
+      alert("Successful Check-in!")
+    }
+
+    function errorCallback(response) {
+      alert("fail");
+    }
+  }
+
   dashboard.loadRoster = function(record, key) {
     $http({
       method: 'POST',

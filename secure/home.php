@@ -6,6 +6,12 @@ $firstName = $headers['givenName'];
 $lastName = $headers['sn'];
 $email = $headers['mail'];
 $affiliation = $headers['affiliation'];
+// $onyen = 'yechoorv';
+// $pid = '720396961';
+// $firstName = 'Vamsi';
+// $lastName = 'Yechoor';
+// $email = 'yechoorv@live.unc.edu';
+// $affiliation = 'student@unc.edu;member@unc.edu;alum@unc.edu';
 ?>
 
 <head>
@@ -19,13 +25,10 @@ $affiliation = $headers['affiliation'];
   <link rel="stylesheet" href="/jQuery/jquery.dataTables.min.css">
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
   <script type="text/javascript" src="/jQuery/jquery-3.2.1.js"></script>
-<<<<<<< HEAD
   <script type="text/javascript" src="/jQuery/jquery.tablesorter.js"></script>
   <script type="text/javascript" src="/jQuery/jquery-latest.js"></script>
-=======
   <script type="text/javascript" src="/jQuery/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="/jQuery/jquery.tablesorter.js"></script>
->>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
   <script type="text/javascript" src="attendanceTable.js"></script>
 </head>
@@ -69,28 +72,41 @@ $affiliation = $headers['affiliation'];
             <div ng-if="studentMode">
               <h2>{{key}} Attendance</h2>
               <div class="container">
-              <table id="studentAttendance" class="table table-hover table-striped table-bordered tablesorter">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Check-in Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="x in value.records">
-                    <td>{{x.timestamp}}</td>
-                    <td><span ng-class="{'glyphicon glyphicon-ok-circle green': value.attendance > 0, 'glyphicon glyphicon-remove-circle red': value.attendance <= 0}"></span></td>
-                  </tr>
-                </tbody>
-              </table>
+                <table id="studentAttendance" class="table table-hover table-striped table-bordered tablesorter">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Check-in Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="x in value.records">
+                      <td>{{x.timestamp}}</td>
+                      <td><span ng-class="{'glyphicon glyphicon-ok-circle green': value.attendance > 0, 'glyphicon glyphicon-remove-circle red': value.attendance <= 0}"></span></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
             <div ng-if="instructorMode" ng-init="loadRoster(value, key)">
-              <label class="control-label">Upload Roster</label>
-              <input id="rosterFile" type="file" class="file">
-              <button class="btn btn-default" ng-click="uploadRoster(value, key)" style="margin-top:10px">Upload</button>&nbsp;
-              <button class="btn btn-default" ng-click="exportRoster(key)" style="margin-top:10px">Export Attendance to CSV</button>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <form ng-submit="manualCheckIn(value)">
+                      <label for="manualCheckInInput">Manual Check-in</label>
+                      <input ng-model="manualCheckInForm.onyen" type="text" id="manualCheckInInput" class="form-control" placeholder="Enter onyen"></input>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                  </div>
+                  <div class="col-sm">
+                    <label class="control-label">Upload Roster</label>
+                    <input id="rosterFile" type="file" class="file">
+                    <button class="btn btn-default" ng-click="uploadRoster(value, key)" style="margin-top:10px">Upload</button>&nbsp;
+                    <button class="btn btn-default" ng-click="exportRoster(key)" style="margin-top:10px">Export Attendance to CSV</button>
+                  </div>
+                </div>
+              </div>
               <br><br>
               <ul id="courseTabs" class="nav nav-tabs">
                 <li class="active"><a href="#today{{key}}" data-toggle="tab">Today's Attendance</a></li>
@@ -98,11 +114,7 @@ $affiliation = $headers['affiliation'];
               </ul>
               <div class="container tab-content">
                 <div class="tab-pane active" id="today{{key}}" name="today{{key}}">
-<<<<<<< HEAD
                   <table id="todayInstructor" class="table table-hover table-striped table-bordered tablesorter">
-=======
-                  <table class="table table-hover table-striped table-bordered">
->>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
                     <thead>
                       <tr>
                         <th>Onyen</th>
@@ -118,11 +130,7 @@ $affiliation = $headers['affiliation'];
                   </table>
                 </div>
                 <div class="tab-pane" id="overall{{key}}" name="overall{{key}}">
-<<<<<<< HEAD
                   <table id="overallInstructor" class="table table-hover table-striped table-bordered tablesorter" ng-init="timestampColumns = []">
-=======
-                  <table class="table table-hover table-striped table-bordered" ng-init="timestampColumns = []">
->>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
                     <tr>
                       <td></td>
                       <th ng-repeat="x in value.records" ng-init="timestampColumns.push(x.timestamp)" scope="col">{{x.timestamp}}</th>
@@ -137,11 +145,7 @@ $affiliation = $headers['affiliation'];
             </div>
 
             <div ng-if="administratorMode" ng-init="loadRoster(value, key)">
-<<<<<<< HEAD
               <table id="adminTable" class="table table-hover table-striped table-bordered tablesorter" ng-init="timestampColumns = []" ng-if="value.records.length > 0">
-=======
-              <table class="table table-hover table-striped table-bordered" ng-init="timestampColumns = []" ng-if="value.records.length > 0">
->>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
                 <tr>
                   <td></td>
                   <th ng-repeat="x in value.records" ng-init="timestampColumns.push(x.timestamp)" scope="col">{{x.timestamp}}</th>
