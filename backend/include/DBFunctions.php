@@ -1,24 +1,18 @@
 <?php
-
 class DBFunctions {
-
 	// constructor
 	function __construct() {
 		require_once 'DBConnect.php';
-
 		// connecting to database
 		$db = new DBConnect();
 		$db = $db->connect();
 		return $db;
 	}
-
 	// destructor
 	function __destruct() {
-
 	}
-
 	function addCheckIn($onyen, $role, $course_id, $db) {
-		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', CURRENT_TIMESTAMP())") or die(mysqli_error($db));
+		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', DATE_FORMAT(NOW(),'%b %d %Y %h:%i %p'))") or die(mysqli_error($db));
 		if($query) {
 			// Successful insert
 			$result['code'] = 0;
@@ -31,11 +25,9 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	// Add a student check in record
 	public function addStudentCheckIn($onyen, $role, $beaconID) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno FROM courses WHERE beaconID = '$beaconID'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0){
 			$course_ids = $query_id->fetch_all(MYSQLI_ASSOC);
@@ -51,11 +43,9 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	// Add a check in record
 	public function addInstructorCheckIn($onyen, $role, $beaconID, $course_dept, $course_num, $course_sec) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno, beaconID FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0){
 			$row = $query_id->fetch_assoc();
@@ -76,7 +66,6 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	function isCourseOpen($course_id, $db) {
 		$query = $db->query("SELECT openTime, closedTime FROM courses WHERE sno = '$course_id'") or die(mysqli_error($db));
 		if($query) {
@@ -88,7 +77,6 @@ class DBFunctions {
 		}
 		return false;
 	}
-
 	function isBeaconOpen($beaconID, $db) {
 		$query_id = $db->query("SELECT sno FROM courses WHERE beaconID = '$beaconID'") or die(mysqli_error($db));
 		$course_ids = $query_id->fetch_all(MYSQLI_ASSOC);
@@ -100,45 +88,53 @@ class DBFunctions {
 		}
 		return true;
 	}
-
 	// Get student attendance records
 	public function getStudentAttendance($onyen) {
 		$role = 'student';
 		return $this->getAttendance($onyen, $role);
 	}
-
 	// Get instructor attendance records
 	public function getInstructorAttendance($onyen) {
 		$role = 'instructor';
 		return $this->getAttendance($onyen, $role);
 	}
-
+	// Get administrator attendance records
+	public function getAdministratorAttendance($onyen) {
+		$db = $this->__construct();
+		$role = 'instructor';
+		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM courses LEFT JOIN attendance ON attendance.courseID = courses.sno WHERE courses.creator = '$onyen' AND (role = 'instructor' OR role IS NULL)") or die(mysqli_error($db));
+		if($query) {
+			$result['code'] = 0;
+			$records = $query->fetch_all(MYSQLI_ASSOC);
+			$result['records'] = $records;
+		}
+		return $result;
+	}
 	public function getRosterAttendance($department, $number, $section, $roster) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
 			$this->uploadRoster($course_id, $roster, $db);
-			$query = $db->query("SELECT onyen, COUNT(*) AS count FROM attendance WHERE courseID = '$course_id' AND role = 'student' GROUP BY onyen") or die(mysqli_error($db));
+			$query = $db->query("SELECT onyen, timestamp FROM attendance WHERE courseID = '$course_id' AND role = 'student'") or die(mysqli_error($db));
 			$records = $query->fetch_all(MYSQLI_ASSOC);
 			$result['records'] = $records;
 			$result['code'] = 0;
 			return $result;
 		}
 	}
-
 	// Upload roster
 	function uploadRoster($courseID, $roster, $db) {
 		$roster = explode(",", $roster);
 		foreach($roster as $onyen) {
-			$query = $db->query("INSERT IGNORE INTO roster(courseID, onyen) VALUES('$courseID', '$onyen')") or die(mysqli_error($db));
+			$onyen = trim($onyen);
+			if(!empty($onyen)) {
+				$query = $db->query("INSERT IGNORE INTO roster(courseID, onyen) VALUES('$courseID', '$onyen')") or die(mysqli_error($db));
+			}
 		}
 	}
-
 	public function getRoster($department, $number, $section) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
@@ -152,7 +148,6 @@ class DBFunctions {
 			return $result;
 		}
 	}
-
 	function getAttendance($onyen, $role) {
 		$db = $this->__construct();
 		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM attendance LEFT JOIN courses ON attendance.courseID = courses.sno WHERE onyen = '$onyen' AND role = '$role'") or die(mysqli_error($db));
@@ -163,11 +158,9 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	// Add course
 	public function addCourse($department, $number, $section, $creator, $beaconID) {
 		$db = $this->__construct();
-
 		$query = $db->query("INSERT INTO courses(department, number, section, creator, beaconID) VALUES('$department', '$number', '$section', '$creator', '$beaconID')") or die(mysqli_error($db));
 		if($query) {
 			// Successful insert
@@ -178,19 +171,6 @@ class DBFunctions {
 		} else {
 			// Insert failed
 			$result['code'] = 1;
-		}
-		return $result;
-	}
-
-	// Get course information
-	public function getCoursesByAdmin($creator) {
-		$db = $this->__construct();
-
-		$query = $db->query("SELECT * FROM courses WHERE creator = '$creator'") or die(mysqli_error($db));
-		if($query) {
-			$result['code'] = 0;
-			$records = $query->fetch_all(MYSQLI_ASSOC);
-			$result['records'] = $records;
 		}
 		return $result;
 	}
