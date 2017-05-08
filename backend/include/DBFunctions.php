@@ -1,22 +1,16 @@
 <?php
-
 class DBFunctions {
-
 	// constructor
 	function __construct() {
 		require_once 'DBConnect.php';
-
 		// connecting to database
 		$db = new DBConnect();
 		$db = $db->connect();
 		return $db;
 	}
-
 	// destructor
 	function __destruct() {
-
 	}
-
 	function addCheckIn($onyen, $role, $course_id, $db) {
 		$query = $db->query("INSERT INTO attendance(onyen, role, courseID, timestamp) VALUES('$onyen', '$role', '$course_id', DATE_FORMAT(NOW(),'%b %d %Y %h:%i %p'))") or die(mysqli_error($db));
 		if($query) {
@@ -31,11 +25,9 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	// Add a student check in record
 	public function addStudentCheckIn($onyen, $role, $beaconID) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno FROM courses WHERE beaconID = '$beaconID'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0){
 			$course_ids = $query_id->fetch_all(MYSQLI_ASSOC);
@@ -51,11 +43,9 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	// Add a check in record
 	public function addInstructorCheckIn($onyen, $role, $beaconID, $course_dept, $course_num, $course_sec) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno, beaconID FROM courses WHERE department = '$course_dept' AND number = '$course_num' AND section = '$course_sec'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0){
 			$row = $query_id->fetch_assoc();
@@ -76,7 +66,6 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	function isCourseOpen($course_id, $db) {
 		$query = $db->query("SELECT openTime, closedTime FROM courses WHERE sno = '$course_id'") or die(mysqli_error($db));
 		if($query) {
@@ -88,7 +77,6 @@ class DBFunctions {
 		}
 		return false;
 	}
-
 	function isBeaconOpen($beaconID, $db) {
 		$query_id = $db->query("SELECT sno FROM courses WHERE beaconID = '$beaconID'") or die(mysqli_error($db));
 		$course_ids = $query_id->fetch_all(MYSQLI_ASSOC);
@@ -100,19 +88,20 @@ class DBFunctions {
 		}
 		return true;
 	}
-
 	// Get student attendance records
 	public function getStudentAttendance($onyen) {
 		$role = 'student';
 		return $this->getAttendance($onyen, $role);
 	}
-
 	// Get instructor attendance records
 	public function getInstructorAttendance($onyen) {
 		$role = 'instructor';
 		return $this->getAttendance($onyen, $role);
 	}
+<<<<<<< HEAD
+=======
 
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
 	// Get administrator attendance records
 	public function getAdministratorAttendance($onyen) {
 		$db = $this->__construct();
@@ -125,10 +114,12 @@ class DBFunctions {
 		}
 		return $result;
 	}
+<<<<<<< HEAD
+=======
 
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
 	public function getRosterAttendance($department, $number, $section, $roster) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
@@ -140,7 +131,6 @@ class DBFunctions {
 			return $result;
 		}
 	}
-
 	// Upload roster
 	function uploadRoster($courseID, $roster, $db) {
 
@@ -152,10 +142,8 @@ class DBFunctions {
 			}
 		}
 	}
-
 	public function getRoster($department, $number, $section) {
 		$db = $this->__construct();
-
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
 		if($query_id && $query_id->num_rows > 0) {
 			$course_id = $query_id->fetch_assoc()['sno'];
@@ -169,7 +157,6 @@ class DBFunctions {
 			return $result;
 		}
 	}
-
 	function getAttendance($onyen, $role) {
 		$db = $this->__construct();
 		$query = $db->query("SELECT attendance.onyen AS onyen, attendance.role AS role, courses.department AS department, courses.number AS number, courses.section AS section, attendance.timestamp AS timestamp FROM attendance LEFT JOIN courses ON attendance.courseID = courses.sno WHERE onyen = '$onyen' AND role = '$role'") or die(mysqli_error($db));
@@ -180,11 +167,9 @@ class DBFunctions {
 		}
 		return $result;
 	}
-
 	// Add course
 	public function addCourse($department, $number, $section, $creator, $beaconID) {
 		$db = $this->__construct();
-
 		$query = $db->query("INSERT INTO courses(department, number, section, creator, beaconID) VALUES('$department', '$number', '$section', '$creator', '$beaconID')") or die(mysqli_error($db));
 		if($query) {
 			// Successful insert
@@ -198,4 +183,8 @@ class DBFunctions {
 		}
 		return $result;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
