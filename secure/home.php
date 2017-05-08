@@ -16,10 +16,16 @@ $affiliation = $headers['affiliation'];
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/jQuery/jquery.dataTables.min.css">
   <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
   <script type="text/javascript" src="/jQuery/jquery-3.2.1.js"></script>
+<<<<<<< HEAD
   <script type="text/javascript" src="/jQuery/jquery.tablesorter.js"></script>
   <script type="text/javascript" src="/jQuery/jquery-latest.js"></script>
+=======
+  <script type="text/javascript" src="/jQuery/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="/jQuery/jquery.tablesorter.js"></script>
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
   <script type="text/javascript" src="/js/dashboard.controller.js"></script>
   <script type="text/javascript" src="attendanceTable.js"></script>
 </head>
@@ -92,7 +98,11 @@ $affiliation = $headers['affiliation'];
               </ul>
               <div class="container tab-content">
                 <div class="tab-pane active" id="today{{key}}" name="today{{key}}">
+<<<<<<< HEAD
                   <table id="todayInstructor" class="table table-hover table-striped table-bordered tablesorter">
+=======
+                  <table class="table table-hover table-striped table-bordered">
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
                     <thead>
                       <tr>
                         <th>Onyen</th>
@@ -108,7 +118,11 @@ $affiliation = $headers['affiliation'];
                   </table>
                 </div>
                 <div class="tab-pane" id="overall{{key}}" name="overall{{key}}">
+<<<<<<< HEAD
                   <table id="overallInstructor" class="table table-hover table-striped table-bordered tablesorter" ng-init="timestampColumns = []">
+=======
+                  <table class="table table-hover table-striped table-bordered" ng-init="timestampColumns = []">
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
                     <tr>
                       <td></td>
                       <th ng-repeat="x in value.records" ng-init="timestampColumns.push(x.timestamp)" scope="col">{{x.timestamp}}</th>
@@ -123,7 +137,11 @@ $affiliation = $headers['affiliation'];
             </div>
 
             <div ng-if="administratorMode" ng-init="loadRoster(value, key)">
+<<<<<<< HEAD
               <table id="adminTable" class="table table-hover table-striped table-bordered tablesorter" ng-init="timestampColumns = []" ng-if="value.records.length > 0">
+=======
+              <table class="table table-hover table-striped table-bordered" ng-init="timestampColumns = []" ng-if="value.records.length > 0">
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
                 <tr>
                   <td></td>
                   <th ng-repeat="x in value.records" ng-init="timestampColumns.push(x.timestamp)" scope="col">{{x.timestamp}}</th>

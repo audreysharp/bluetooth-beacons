@@ -98,6 +98,10 @@ class DBFunctions {
 		$role = 'instructor';
 		return $this->getAttendance($onyen, $role);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
 	// Get administrator attendance records
 	public function getAdministratorAttendance($onyen) {
 		$db = $this->__construct();
@@ -110,6 +114,10 @@ class DBFunctions {
 		}
 		return $result;
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
 	public function getRosterAttendance($department, $number, $section, $roster) {
 		$db = $this->__construct();
 		$query_id = $db->query("SELECT sno FROM courses WHERE department = '$department' AND number = '$number' AND section = '$section'") or die(mysqli_error($db));
@@ -125,6 +133,7 @@ class DBFunctions {
 	}
 	// Upload roster
 	function uploadRoster($courseID, $roster, $db) {
+
 		$roster = explode(",", $roster);
 		foreach($roster as $onyen) {
 			$onyen = trim($onyen);
@@ -174,4 +183,8 @@ class DBFunctions {
 		}
 		return $result;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc

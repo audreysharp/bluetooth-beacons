@@ -21,4 +21,8 @@ class DBConnect {
 		mysqli_close();
 	}
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> cf115090b6f1e98d76b4cbc47bb74b0940d444cc
