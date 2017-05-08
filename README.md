@@ -11,7 +11,7 @@ For this to work, we will be implementing a two-factor approach: UNC-CH Shibbole
 
 ### Screenshot
 
-![screenshot.png](screenshot.png)
+![screenshot1.png](screenshot1.png)
 
 The [live demo](shibboleth-yechoorv.cloudapps.unc.edu) of this application is hosted on Carolina CloudApps.
 
