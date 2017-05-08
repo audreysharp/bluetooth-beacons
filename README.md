@@ -33,21 +33,31 @@ The [live demo](shibboleth-yechoorv.cloudapps.unc.edu) of this application is ho
 * Add individual users and define roles for users
 
 ## Project Architecture
-Backend
+Backend  
 * PHP
 * MySQL
 
-Frontend
+Frontend  
 * HTML5/CSS3
 * Angular.js
 * Bootstrap
 
-Bluetooth
+Bluetooth  
 * Estimote Bluetooth Beacons
 * Estimote SDK for Android and iOS
 
 ## Installation Instructions
 
-Clone the repository with ```git clone```.
+This repository contains the code for both the frontend and backend of the application. You can deploy it to [Carolina CloudApps](http://cloudapps.unc.edu/).
 
-You will need a local server environment in order to run the application. Ensure that you have a MySQL database running on localhost.
+1. ```git clone``` this repository and set it up on the Git server of your choosing. The CloudApps-provided Git management site is located at [sc.unc.edu](https://sc.unc.edu).
+
+2. Create a new CloudApps project.
+
+3. Create a new build for the project. You will need a PHP container, a MySQL container, and a Shibboleth Single Sign On container.
+
+4. Set the Git repository to the one you have created: ```git@server:/your-repo.git```. Create Git SSH keys so that your CloudApps project can access the repository. The [CloudApps documentation](http://help.unc.edu/help-tag/cloudapps/) has instructions on how to do this.
+
+5. Run the build.
+
+6. In order to allow teachers and students to check in to their classes, you will need to use either the [Android application](https://github.com/audreysharp/android-bluetooth-beacons) or the [iOS application](https://github.com/audreysharp/ios-bluetooth-beacons). If you'd like, you can test the application by sending POST requests from a REST client.
