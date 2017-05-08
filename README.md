@@ -2,7 +2,7 @@
 
 [Live Demo](https://shibboleth-yechoorv.cloudapps.unc.edu)  
 [Project Website](http://bluetoothbeacon.web.unc.edu/)  
-[Android Companion Application](https://github.com/audreysharp/android-bluetooth-beacons)
+[Android Companion Application](https://github.com/audreysharp/android-bluetooth-beacons)  
 [iOS Companion Application](https://github.com/audreysharp/ios-bluetooth-beacons)
 
 This project is meant to provide an accurate attendance tracking mechanism for not only professors but for students as well. Professors can use this application to streamline attendance taking and increase actual learning time spent in the classroom. It can also help them identify specific students who are struggling. For administrators, it can be used to determine the effectiveness of attending classes by comparing student attendance to grades. Finally, students will be provided with a way to track their absences and be more aware of their attendance.
